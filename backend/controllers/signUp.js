@@ -1,9 +1,9 @@
 
-const registeredUserRouter = require('express').Router()
+const signUpRouter = require('express').Router()
 const registeredUser = require('../models/registeredUser')
 const bcrypt = require('bcryptjs')
 
-registeredUserRouter.post('/', async (req,res) => {
+signUpRouter.post('/', async (req,res) => {
     const {username,name,password} = req.body
     const saltRounds = 10
     const passwordHash = await bcrypt.hash(password,saltRounds)
@@ -16,9 +16,4 @@ registeredUserRouter.post('/', async (req,res) => {
     res.status(201).json(savedUser)
 })
 
-registeredUserRouter.get('/', async (req,res) => {
-    const users = await registeredUser.find({}).populate('savedRecipes comments')
-    res.status(200).json(users)
-})
-
-module.exports = registeredUserRouter
+module.exports = signUpRouter

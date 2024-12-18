@@ -4,7 +4,10 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const loginRouter = require('./controllers/login')
-const registeredUserRouter = require('./controllers/registeredUser')
+const signUpRouter = require('./controllers/signUp')
+const adminLoginRouter = require('./controllers/adminLogin')
+const adminSignUpRouter = require('./controllers/adminSignup')
+
 const mongoose = require('mongoose')
 
 
@@ -16,7 +19,9 @@ app.use(express.json())
 app.use(middleware.myLogger)
 app.use(middleware.tokenExtractor)
 app.use('/api/login',loginRouter)
-app.use('/api/users',registeredUserRouter)
+app.use('/api/SignUp',signUpRouter)
+app.use('/api/AdminLogin',adminLoginRouter)
+app.use('/api/AdminSignUp', adminSignUpRouter)
 app.use(middleware.unknownEndpoint)
 
 module.exports = app
