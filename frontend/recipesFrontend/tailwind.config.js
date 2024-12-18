@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'login-bg': "url('./src/img/background5.webp')",
+        'login-bg': "url('./src/img/background5.jpg')",
       },
     },
   },
