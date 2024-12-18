@@ -5,6 +5,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import AdminLogin from './components/AdminLogin'
 import AdminSignUp from './components/AdminSignUp'
+import UserProfile from './components/UserDashboard'
 import { useState } from 'react'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
        <Route path='/SignUp' element={<SignUp setLoggedInUser={setLoggedInUser}/>}/>
        <Route path='/AdminLogin'element={<AdminLogin setLoggedInAdmin={setLoggedInAdmin}/>} ></Route>
        <Route path='/AdminSignUp'element={<AdminSignUp setLoggedInAdmin={setLoggedInAdmin}/>}  ></Route>
+       <Route path='/UserProfile' element={<UserProfile/>}></Route>
        <Route/>
      </Routes>
    </Router>
