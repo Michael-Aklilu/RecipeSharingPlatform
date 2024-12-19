@@ -7,7 +7,6 @@ const AdminLogin = ({setLoggedInAdmin}) => {
       const [username,setUsername] = useState('')
       const [password,setPassword] = useState('')
       
-    
       const handleSubmit = async (event) => {
         event.preventDefault()
         try{
@@ -54,7 +53,7 @@ const AdminLogin = ({setLoggedInAdmin}) => {
               </div>
              
               <div className='mt-1 flex '>
-                <Link className='text-white' to="/SignUp">Create Administrator account?</Link>
+                <Link className='text-white' to="/AdminSignUp">Create Administrator account?</Link>
               </div>
               </form>
               

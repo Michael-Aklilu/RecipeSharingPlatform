@@ -63,7 +63,7 @@ const AdminSignUp = ({setLoggedInAdmin}) => {
           </div>
          
           <div className='mt-1 flex '>
-            <Link to= "/login" className="text-white">Already an administrator? Sign In</Link>
+            <Link to= "/Adminlogin" className="text-white">Already an administrator? Sign In</Link>
           </div>
           </form>       
           </div>  
