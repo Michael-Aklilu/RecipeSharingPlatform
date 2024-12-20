@@ -6,15 +6,15 @@ const registeredUserSchema = new mongoose.Schema({
     passwordHash: { type: String, required: true },
     comments: [
         {
-            _id: { type: mongoose.Schema.Types.ObjectId },
-            body: { type: String, required: true },
-            date: { type: Date, default: Date.now }
+            type: mongoose.Schema.Types.ObjectId ,
+            ref: 'Comments'
+            
         }
     ],
     savedRecipes: [
         {
-            _id: {type: mongoose.Schema.Types.ObjectId},
-            body: {type: String, required: true}
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Recipes'
         }
       
     ]
@@ -30,7 +30,7 @@ registeredUserSchema.set('toJSON', {
     }
 })
 
-const registeredUser = mongoose.model('Registered_User',registeredUserSchema)
+const registeredUser = mongoose.model('RegisteredUser',registeredUserSchema)
 
 module.exports = registeredUser
 
