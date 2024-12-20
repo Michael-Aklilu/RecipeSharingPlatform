@@ -1,4 +1,4 @@
-import AdminDashboard from "./AdminDashboard"
+import AdminDashboard from "./AdminDashboard/AdminDashboard"
 import AdminSidebar from "./AdminSidebar/AdminSidebar"
 
 const AdminHomePage = () => {
