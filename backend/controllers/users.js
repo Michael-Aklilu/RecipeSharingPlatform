@@ -19,7 +19,7 @@ userRouter.get('/:id',async (req,res) => {
        const id = req.params.id
        const user = await registeredUser.findById(id)
        if(!user){
-        res.status(404).json({error: 'User not found'})
+        return res.status(404).json({error: 'User not found'})
        }
        res.status(200).json(user)
     }catch(error){
@@ -53,7 +53,7 @@ userRouter.delete('/:id', async (req,res) => {
           .populate('Comments')
           .populate('SavedRecipes')
         if(!user){
-            res.status(404).json({error: 'User not found'})
+            return res.status(404).json({error: 'User not found'})
         }
         res.status(204).send()
     }catch(error){
@@ -78,7 +78,7 @@ userRouter.put('/:id', async (req,res) => {
           .populate('SavedRecipes')
         
         if(!user){
-            res.status(404).json({error: 'User not found'})
+            return res.status(404).json({error: 'User not found'})
         }
         res.status(200).json(newUser)
 
@@ -87,7 +87,6 @@ userRouter.put('/:id', async (req,res) => {
     }
    
 })
-
 
 
 module.exports =  userRouter
