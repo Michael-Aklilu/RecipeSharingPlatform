@@ -5,7 +5,7 @@ const admin = require('../models/admin')
 
 
 adminLoginRouter.post('/',async (req,res) => {
-    const{username,name,password} = req.body
+    const{username,password} = req.body
     const user = await admin.findOne({username})
     const correctPassword = admin == null ? false : bcrypt.compare(password,user.passwordHash)
 

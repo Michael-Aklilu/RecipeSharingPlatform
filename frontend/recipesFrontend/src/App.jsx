@@ -6,11 +6,32 @@ import SignUp from './components/SignUp'
 import AdminLogin from './components/AdminLogin'
 import AdminSignUp from './components/AdminSignUp'
 import UserProfile from './components/UserDashboard'
-import { useState } from 'react'
+import recipeService from './services/recipes'
+import userService from './services/users'
+import { useState, useEffect } from 'react'
 
 function App() {
   const [loggedInUser,setLoggedInUser] = useState(null)
   const[loggedInAdmin,setLoggedInAdmin] = useState(null)
+
+  useEffect(() => {
+    const adminJSON = window.localStorage.getItem('LoggedInAdmin')
+    if(adminJSON){
+      const admin = JSON.parse(adminJSON)
+      setLoggedInAdmin(admin)
+      userService.setToken(admin.token)
+      recipeService.setToken(admin.token)
+    }
+    const userJSON = window.localStorage.getItem('LoggedInUser')
+
+    if(userJSON){
+      const user = JSON.parse(userJSON)
+      setLoggedInUser(user)
+      recipeService.setToken(user.token)
+    }
+  },[])
+
+ 
 
   return (
    <Router>

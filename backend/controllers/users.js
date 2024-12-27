@@ -1,12 +1,14 @@
 const userRouter = require('express').Router()
 const registeredUser = require('../models/registeredUser')
 const bcrypt = require('bcryptjs')
+const { userExtractor } = require('../utils/middleware')
 
+userRouter.use(userExtractor)
 userRouter.get('/',async (req,res) => {
     try{
         const users = await registeredUser.find({})
-          .populate('Comments')
-          .populate('SavedRecipes')
+          //.populate('Comments')
+          //.populate('SavedRecipes')
         res.status(200).json(users)  
     }catch(error){
         res.status(500).json({ error: 'An error occurred while fetching users.' })
@@ -37,8 +39,8 @@ userRouter.post('/', async (req,res) => {
       await newUser.save()
       const updatedUsers = await registeredUser.find
       ({})
-        .populate('Comments')
-        .populate('SavedRecipes')
+        //.populate('Comments')
+        //.populate('SavedRecipes')
       res.status(201).json(updatedUsers)
    }catch(error){
       console.log(error)
@@ -71,8 +73,8 @@ userRouter.put('/:id', async (req,res) => {
 
         const id = req.params.id
         const user = await registeredUser.findByIdAndUpdate(id,updatedUser, {new: true})
-          .populate('Comments')
-          .populate('SavedRecipes')
+          //.populate('Comments')
+          //.populate('SavedRecipes')
         const newUser = await registeredUser.findById(id)
           .populate('Comments')
           .populate('SavedRecipes')

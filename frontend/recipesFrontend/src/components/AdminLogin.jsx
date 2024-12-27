@@ -1,6 +1,8 @@
 import {useState} from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import adminLoginService from '../services/adminLogin'
+import recipeService from '../services/recipes'
+
 
 const AdminLogin = ({setLoggedInAdmin}) => {
      const navigate = useNavigate()
@@ -11,9 +13,13 @@ const AdminLogin = ({setLoggedInAdmin}) => {
         event.preventDefault()
         try{
           const admin = await adminLoginService.login({username,password})
+          recipeService.setToken(admin.token)
           setLoggedInAdmin(admin)  
           setUsername('')
           setPassword('')
+
+          window.localStorage.setItem('LoggedInAdmin', JSON.stringify(admin))
+
           if(admin) navigate('/AdminHome')
         }catch{
           console.log('Wrong credentials');

@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import  loginService from '../services/login' 
+import userService from '../services/users'
 const Login = ({setLoggedInUser}) => {
   const navigate = useNavigate()
   const [username,setUsername] = useState('')
@@ -12,9 +13,14 @@ const Login = ({setLoggedInUser}) => {
     event.preventDefault()
     try{
       const user = await loginService.login({username,password})
+      
+      userService.setToken(user.token)
       setLoggedInUser(user)
       setUsername('')
       setPassword('')
+
+      window.localStorage.setItem('LoggedInUser', JSON.stringify(user))
+      
       if(user) navigate('/UserHome')
     }catch{
       console.log('Wrong credentials');

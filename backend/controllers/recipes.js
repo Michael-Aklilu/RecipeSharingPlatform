@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const recipeRouter = require('express').Router()
 const Recipes = require('../models/recipes')
 const registeredUser = require('../models/registeredUser')
-
+const {userExtractor} = require('../utils/middleware')
 
 recipeRouter.get('/', async (req,res) => {
 
@@ -37,7 +37,7 @@ recipeRouter.get('/:id', async (req,res) => {
   }
 
 })
-recipeRouter.post('/',async (req,res) => {
+recipeRouter.post('/',userExtractor,async (req,res) => {
     try{
         const{ title, description,ingredients,instructions,servings,
             prepTime,cookTime,imageUrl,RegisteredUser } = req.body
@@ -65,7 +65,7 @@ recipeRouter.post('/',async (req,res) => {
     }
 })
 
-recipeRouter.put('/:id', async (req,res) => {
+recipeRouter.put('/:id',userExtractor, async (req,res) => {
    try{
       const id = req.params.id
       const {title, description,ingredients,instructions,servings,
@@ -101,7 +101,7 @@ recipeRouter.put('/:id', async (req,res) => {
    }
 })
 
-recipeRouter.delete('/:id', async (req,res) => {
+recipeRouter.delete('/:id',userExtractor, async (req,res) => {
     try{
       const id = req.params.id
       const recipe = await Recipes.findByIdAndDelete(id)
