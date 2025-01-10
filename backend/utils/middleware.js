@@ -1,6 +1,7 @@
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const registeredUser = require('../models/registeredUser')
+const administrator = require('../models/admin')
 
 const myLogger = function(req,res,next){
     logger.info('Method:', req.method)
@@ -18,23 +19,32 @@ const tokenExtractor = (request,response,next) => {
 }
 
 const userExtractor = async (request, response, next) => {
+  if (!request.token) {
+    return response.status(401).json({ error: 'token missing or invalid' });
+  }
 
-    if (!request.token) {
-      return response.status(401).json({ error: 'token missing or invalid' });
-    }
-  
+  try {
     const decodedToken = jwt.verify(request.token, process.env.SECRET);
+    console.log(decodedToken)
     if (!decodedToken || !decodedToken.id) {
       return response.status(401).json({ error: 'invalid token' });
     }
-  
+
     const user = await registeredUser.findById(decodedToken.id);
-    if (!user) {
+    const admin = await administrator.findById(decodedToken.id);
+    if (!user && !admin) {
+      console.log('User or admin not found');
       return response.status(404).json({ error: 'user not found' });
     }
-  
-    request.user = user;
+
+    if (user) request.user = user;
+    if (admin) request.user = admin;
+
     next();
+  } catch (error) {
+    console.error('Error decoding token:', error);
+    return response.status(401).json({ error: 'invalid token' });
+  }
 };
 
 const unknownEndpoint = (request, response) => {

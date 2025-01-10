@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react'
 function App() {
   const [loggedInUser,setLoggedInUser] = useState(null)
   const[loggedInAdmin,setLoggedInAdmin] = useState(null)
+  const [showAddUserForm, setShowAddUserForm] = useState(false)
 
   useEffect(() => {
     const adminJSON = window.localStorage.getItem('LoggedInAdmin')
@@ -36,7 +37,7 @@ function App() {
   return (
    <Router>
      <Routes>
-      <Route path='/AdminHome' element={<AdminHomePage/>}></Route>
+      <Route path='/AdminHome' element={<AdminHomePage showAddUserForm={showAddUserForm} setShowAddUserForm={setShowAddUserForm}/>}></Route>
       <Route path='/UserHome'element={<UserHomePage/>} ></Route>
        <Route path='/login' element={<Login setLoggedInUser={setLoggedInUser}/>}/>
        <Route path='/SignUp' element={<SignUp setLoggedInUser={setLoggedInUser}/>}/>

@@ -1,29 +1,75 @@
+import { FiHome, FiLogOut } from "react-icons/fi";
+import {
+  FaUserMinus,
+  FaUserPlus,
+  FaPizzaSlice,
+  FaBan,
+  FaTrash,
+} from "react-icons/fa";
 
-import { FiHome,FiLogOut } from 'react-icons/fi'
-import { FaUserMinus, FaUserPlus, FaPizzaSlice, FaBan, FaTrash } from 'react-icons/fa'
-const AdminRouteSelect = () => {
-    return (
-        <div className="space-y-4 text-white">
-            <Route icon={FiHome} selected={true} title='Dashboard'/>
-            <Route icon={FaUserPlus} selected={false} title='Add User'/>
-            <Route icon={FaUserMinus} selected={false} title='Remove User'/>
-            <Route icon={FaPizzaSlice} selected={false} title='Add Recipe'/>
-            <Route icon={FaBan} selected={false} title='Remove Recipe'/>
-            <Route icon={FaTrash} selected={false} title='Remove Comment'/>
-            <Route icon={FiLogOut} selected={false} title='Sign out'/>
+const AdminRouteSelect = ({
+  setIsOpen,
+  isOpen,
+  setOpenAddUser,
+  setOpenRemoveUser,
+  setOpenAddRecipe,
+  setOpenRemoveRecipe,
+  setOpenRemoveComment,
+  setOpenSignOut,
+}) => {
+  return (
+    <div className="space-y-8 text-white">
+      <Route icon={FiHome} title="Dashboard" />
+      <Route
+        icon={FaUserPlus}
+        title="Add User"
+        setOpenAddUser={setOpenAddUser}
+        onClick={() => setOpenAddUser(true)}
+      />
+      <Route
+        icon={FaUserMinus}
+        title="Remove User"
+        setOpenRemoveUser={setOpenRemoveUser}
+        onClick={() => setOpenRemoveUser(true)}
+      />
+      <Route
+        icon={FaPizzaSlice}
+        title="Add Recipe"
+        setOpenAddRecipe={setOpenAddRecipe}
+        onClick={() => setOpenAddRecipe(true)}
+      />
+      <Route
+        icon={FaBan}
+        title="Remove Recipe"
+        setOpenRemoveRecipe={setOpenRemoveRecipe}
+        onClick={() => setOpenRemoveRecipe(true)}
+      />
+      <Route
+        icon={FaTrash}
+        title="Remove Comment"
+        setOpenRemoveComment={setOpenRemoveComment}
+        onClick={() => setOpenRemoveComment(true)}
+      />
+      <Route
+        icon={FiLogOut}
+        title="Sign out"
+        setOpenSignOut={setOpenSignOut}
+        onClick={() => setOpenSignOut(true)}
+      />
+    </div>
+  );
+};
 
+const Route = ({ selected, icon: Icon, title, onClick }) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5  transition-[box-shadow,_background-color,_color] hover:bg-stone-300 bg-transparent shadow-none text-lg`}
+    >
+      <Icon />
+      <span>{title}</span>
+    </button>
+  );
+};
 
-        </div>
-    )
-}
-
-const Route = ({selected,icon: Icon,title}) => {
-    return (
-        <button 
-        className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color,_color] ${selected ? 'bg-stone-300 text-gray-700 shadow' : 'hover:bg-stone-300 bg-transparent text-stone500 shadow-none'}`}>
-          <Icon/>
-          <span>{title}</span>
-        </button>
-    )
-}
-export default AdminRouteSelect
+export default AdminRouteSelect;

@@ -7,8 +7,6 @@ userRouter.use(userExtractor)
 userRouter.get('/',async (req,res) => {
     try{
         const users = await registeredUser.find({})
-          //.populate('Comments')
-          //.populate('SavedRecipes')
         res.status(200).json(users)  
     }catch(error){
         res.status(500).json({ error: 'An error occurred while fetching users.' })
