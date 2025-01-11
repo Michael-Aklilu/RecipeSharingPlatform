@@ -1,10 +1,45 @@
-export default function RemoveUser({ open, setOpen }) {
+import {useState} from 'react'
+import Notification from '../Notifications/Notification'
+
+
+export default function RemoveUser({ open, setOpen, userService }) {
+  const [username,setUsername] = useState('')
+  const [error,setError] = useState('')
+  const admin = JSON.parse(window.localStorage.getItem('LoggedInAdmin'))
   if (!open) return null;
+  
+  const handleUsername = async (event) => {
+    event.preventDefault()
+    const usernameInput = event.target.username.value
+    const users = await userService.getAllUsers()
+    await userService.setToken(admin.token)
+    
+    if(users.every((user) => user.username !== usernameInput)){
+      setError('User does not exist')
+      return
+    }
+    
+    try{
+      const userToRemove = users.find((user) => user.username === usernameInput)
+      if(userToRemove){
+        await userService.removeUser(userToRemove.id)
+        event.target.username.value = ""
+        setError("")
+        setOpen(false)
+        window.location.reload()
+      }
+    }catch(error){
+      console.log(error);
+    }
+
+  }
+
+
   return (
     <div className="fixed top-1/4 left-1/4 translate-x-1/2  p-3  bg-gray-700 rounded">
       <div className="flex justify-center items-center bg-center border border-white">
         <div className="w-96 p-6 shadow-lg bg-gray-700 rounded-md ">
-          <form>
+          <form onSubmit={handleUsername}>
             <h1 className="text-3xl block text-center font-semibold text-white ">
               <i className="fa-solid fa-user text-white"></i> Remove User
             </h1>
@@ -25,6 +60,8 @@ export default function RemoveUser({ open, setOpen }) {
                 placeholder="Enter Username..."
               />
             </div>
+
+            <Notification error={error} setError={setError}/>
 
             <div className="mt-5 flex justify-evenly">
               <button

@@ -49,7 +49,7 @@ const AdminHomePage = ({}) => {
         setOpen={setOpenAddUser}
         userService={userService}
       />
-      <RemoveUser open={openRemoveUser} setOpen={setOpenRemoveUser} />
+      <RemoveUser open={openRemoveUser} setOpen={setOpenRemoveUser} userService={userService} />
       <AddRecipe open={openAddRecipe} setOpen={setOpenAddRecipe} />
       <RemoveRecipe open={openRemoveRecipe} setOpen={setOpenRemoveRecipe} />
       <RemoveComment open={openRemoveComment} setOpen={setOpenRemoveComment} />
