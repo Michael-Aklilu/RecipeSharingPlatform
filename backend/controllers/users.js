@@ -37,8 +37,7 @@ userRouter.post('/', async (req,res) => {
       await newUser.save()
       const updatedUsers = await registeredUser.find
       ({})
-        //.populate('Comments')
-        //.populate('SavedRecipes')
+       
       res.status(201).json(updatedUsers)
    }catch(error){
       console.log(error)

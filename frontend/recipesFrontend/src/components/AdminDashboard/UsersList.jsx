@@ -18,6 +18,7 @@ const UsersList = ({ userService }) => {
       console.log("Error fetching users");
     }
   };
+
   return (
     <div className="col-span-12 p-4 border border-stone-300 mt-8">
       <div className="mb-4 flex items-center justify-between">

@@ -10,7 +10,7 @@ const RecipesList = ({ recipeService }) => {
 
   const getRecipes = async () => {
     try {
-      const adminJSON = window.localStorage.getItem("LoggedInUser");
+      const adminJSON = window.localStorage.getItem("LoggedInAdmin");
       const admin = JSON.parse(adminJSON);
       await recipeService.setToken(admin.token);
       const allRecipes = await recipeService.showAllRecipes();
