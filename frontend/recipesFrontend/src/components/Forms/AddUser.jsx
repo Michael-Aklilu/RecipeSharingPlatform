@@ -4,7 +4,7 @@ import Notification from "../Notifications/Notification";
 const AddUser = ({ open, setOpen, userService }) => {
   if (!open) return null;
   const [error, setError] = useState("");
-  const admin = JSON.parse(window.localStorage.getItem("LoggedInUser"));
+  const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
   userService.setToken(admin.token);
 
   const handleInput = async (event) => {
@@ -38,12 +38,12 @@ const AddUser = ({ open, setOpen, userService }) => {
       username: usernameInput,
     };
     try {
-      //await userService.setToken(admin.token);
       const addedUser = await userService.addUser(newUser);
       event.target.name.value = "";
       event.target.username.value = "";
       event.target.password.value = "";
       setError("");
+      window.location.reload()
     } catch (error) {
       console.log(error);
       setError("Failed to add user");

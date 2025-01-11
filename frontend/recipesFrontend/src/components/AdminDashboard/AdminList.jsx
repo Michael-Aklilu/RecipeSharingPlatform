@@ -10,7 +10,7 @@ const AdminList = ({ adminService }) => {
 
   const fetchAdmins = async () => {
     try {
-      const adminJSON = window.localStorage.getItem("LoggedInUser");
+      const adminJSON = window.localStorage.getItem("LoggedInAdmin");
       const admin = JSON.parse(adminJSON);
       adminService.setToken(admin.token);
       const allAdmins = await adminService.getAdmins();
