@@ -3,7 +3,15 @@ import UsersList from "./UsersList";
 import RecipesList from "./RecipesList";
 import AdminList from "./AdminList";
 
-const DashboardGrid = ({ userService, admin, recipeService, adminService }) => {
+const DashboardGrid = ({
+  userService,
+  admin,
+  recipeService,
+  adminService,
+  showAddedUser,
+  showRemovedUser,
+  addedRecipe
+}) => {
   return (
     <div className="px-4 grid gap-3 grid-cols-12">
       <NumberCards
@@ -12,8 +20,12 @@ const DashboardGrid = ({ userService, admin, recipeService, adminService }) => {
         recipeService={recipeService}
         adminService={adminService}
       />
-      <UsersList userService={userService} />
-      <RecipesList recipeService={recipeService} />
+      <UsersList
+        userService={userService}
+        showAddedUser={showAddedUser}
+        showRemovedUser={showRemovedUser}
+      />
+      <RecipesList recipeService={recipeService} addedRecipe={addedRecipe} />
       <AdminList adminService={adminService} />
     </div>
   );

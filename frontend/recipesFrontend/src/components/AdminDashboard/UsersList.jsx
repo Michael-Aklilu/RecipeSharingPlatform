@@ -1,11 +1,19 @@
 import { FiUser, FiMoreHorizontal } from "react-icons/fi";
 import { useState, useEffect } from "react";
-const UsersList = ({ userService }) => {
+const UsersList = ({ userService, showAddedUser, showRemovedUser }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  useEffect(() => {
+    getUsers();
+  }, [showAddedUser]);
+
+  useEffect(() => {
+    getUsers();
+  }, [showRemovedUser]);
 
   const getUsers = async () => {
     try {

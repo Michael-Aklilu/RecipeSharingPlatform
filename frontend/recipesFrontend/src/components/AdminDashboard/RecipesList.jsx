@@ -1,12 +1,16 @@
 import { useState, useEffect } from "react";
 import { FiUser, FiMoreHorizontal } from "react-icons/fi";
 import { FaBook } from "react-icons/fa";
-const RecipesList = ({ recipeService }) => {
+const RecipesList = ({ recipeService, addedRecipe }) => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     getRecipes();
   }, []);
+
+  useEffect(() => {
+    getRecipes();
+  }, [addedRecipe]);
 
   const getRecipes = async () => {
     try {
@@ -36,9 +40,17 @@ const RecipesList = ({ recipeService }) => {
               <TableRow
                 key={recipe.id}
                 recipeID={recipe.id}
-                userID={recipe.RegisteredUser.id}
+                userID={
+                  recipe.RegisteredUser
+                    ? recipe.RegisteredUser.id
+                    : "Admin Owned"
+                }
                 recipeName={recipe.title}
-                ownerName={recipe.RegisteredUser.username}
+                ownerName={
+                  recipe.RegisteredUser
+                    ? recipe.RegisteredUser.username
+                    : "Admin Owned"
+                }
               />
             );
           })}

@@ -1,11 +1,27 @@
 import { FaBan } from "react-icons/fa";
-export default function RemoveRecipe({ open, setOpen }) {
+import { useState } from "react";
+import Notification from "../Notifications/Notification";
+
+export default function RemoveRecipe({ open, setOpen, recipeService }) {
+  const [error, setError] = useState("");
   if (!open) return null;
+
+  const handleInput = (event) => {
+    event.preventDefault();
+    if (event.target.title.value === "") {
+      setError("");
+      return;
+    }
+    if (event.target.username.value === "") {
+      setError("");
+      return;
+    }
+  };
   return (
     <div className="fixed top-1/4 left-1/4 translate-x-1/2  p-3  bg-gray-700 rounded">
       <div className="flex justify-center items-center bg-center border border-white">
         <div className="w-96 p-6 shadow-lg bg-gray-700 rounded-md ">
-          <form>
+          <form onSubmit={handleInput}>
             <h1 className=" flex text-3xl justify-center gap-2 text-center font-semibold text-white ">
               <FaBan /> Remove Recipe
             </h1>
