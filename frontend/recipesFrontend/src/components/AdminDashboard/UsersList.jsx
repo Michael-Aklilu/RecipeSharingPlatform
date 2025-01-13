@@ -1,11 +1,19 @@
-import { FiUser, FiMoreHorizontal } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import { useState, useEffect } from "react";
-const UsersList = ({ userService }) => {
+const UsersList = ({ userService, showAddedUser, showRemovedUser }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getUsers();
   }, []);
+
+  useEffect(() => {
+    getUsers();
+  }, [showAddedUser]);
+
+  useEffect(() => {
+    getUsers();
+  }, [showRemovedUser]);
 
   const getUsers = async () => {
     try {
@@ -37,7 +45,7 @@ const UsersList = ({ userService }) => {
                 userID={user.id}
                 username={user.username}
                 name={user.name}
-                recipesNumber={user.savedRecipes.length}
+                recipesNumber={user.addedRecipes.length}
               />
             );
           })}
@@ -68,14 +76,7 @@ const TableRow = ({ userID, username, name, recipesNumber }) => {
       <td className="p-1.5">{username}</td>
       <td className="p-1.5">{name}</td>
       <td className="p-1.5">{recipesNumber}</td>
-      <td className="p-1.5">
-        <button
-          className="hover:bg-stone-200 transition-colors grid place-content- rounded text-lg size-8"
-          aria-label="More actions"
-        >
-          <FiMoreHorizontal />
-        </button>
-      </td>
+      <td className="p-1.5"></td>
     </tr>
   );
 };

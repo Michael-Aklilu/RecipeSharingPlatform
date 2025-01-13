@@ -12,7 +12,7 @@ const addRecipe = async (recipe) => {
   const config = {
     headers: { Authorization: token },
   };
-  const response = await axios.post(recipe, baseUrl, config);
+  const response = await axios.post(baseUrl, recipe, config);
 
   return response.data;
 };

@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
-import { FiUser, FiMoreHorizontal } from "react-icons/fi";
+import { FiUser } from "react-icons/fi";
 import { FaBook } from "react-icons/fa";
-const RecipesList = ({ recipeService }) => {
+const RecipesList = ({ recipeService, addedRecipe, removedRecipe }) => {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     getRecipes();
   }, []);
+
+  useEffect(() => {
+    getRecipes();
+  }, [addedRecipe]);
+
+  useEffect(() => {
+    getRecipes();
+  }, [removedRecipe]);
 
   const getRecipes = async () => {
     try {
@@ -36,9 +44,17 @@ const RecipesList = ({ recipeService }) => {
               <TableRow
                 key={recipe.id}
                 recipeID={recipe.id}
-                userID={recipe.RegisteredUser.id}
+                userID={
+                  recipe.RegisteredUser
+                    ? recipe.RegisteredUser.id
+                    : "Admin Owned"
+                }
                 recipeName={recipe.title}
-                ownerName={recipe.RegisteredUser.username}
+                ownerName={
+                  recipe.RegisteredUser
+                    ? recipe.RegisteredUser.username
+                    : "Admin Owned"
+                }
               />
             );
           })}
@@ -69,9 +85,6 @@ const TableRow = ({ recipeID, userID, recipeName, ownerName }) => {
       <td className="p-1.5">{userID}</td>
       <td className="p-1.5">{recipeName}</td>
       <td className="p-1.5 ">{ownerName}</td>
-      <button className="hover:bg-stone-200 transition-colors grid place-content-center rounded text-sm size-8">
-        <FiMoreHorizontal />
-      </button>
     </tr>
   );
 };

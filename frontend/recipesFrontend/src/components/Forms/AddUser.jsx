@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Notification from "../Notifications/Notification";
 
-const AddUser = ({ open, setOpen, userService }) => {
+const AddUser = ({ open, setOpen, userService, setShowAddedUser }) => {
   if (!open) return null;
   const [error, setError] = useState("");
   const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
@@ -13,23 +13,28 @@ const AddUser = ({ open, setOpen, userService }) => {
     const usernameInput = event.target.username.value;
     const passwordInput = event.target.password.value;
     const users = await userService.getAllUsers();
-    console.log(users);
+
 
     if (nameInput.length < 5) {
-      setError("Name too short");
+      setError("");
+      setTimeout(() => setError("Name too short"),0); 
       return;
+      
     } else if (users.some((user) => user.name === nameInput)) {
-      setError("Name already exists");
+      setError("");
+      setTimeout(() => setError("Name already exists"),0);
       return;
     }
 
     if (users.some((user) => user.username === usernameInput)) {
-      setError("Username already exists");
+      setError("");
+      setTimeout(() => setError("Username already exists"),0);
       return;
     }
 
     if (passwordInput.length < 5) {
-      setError("Password too short");
+      setError("");
+      setTimeout(() => setError("Password too short"),0);
       return;
     }
     const newUser = {
@@ -45,6 +50,8 @@ const AddUser = ({ open, setOpen, userService }) => {
       setOpen(false)
       window.location.reload()
       setError("");
+      setShowAddedUser(addedUser)
+      setOpen(false)
     } catch (error) {
       console.log(error);
       setError("Failed to add user");

@@ -8,11 +8,10 @@ const recipeSchema = new mongoose.Schema({
   servings: { type: Number, required: true },
   prepTime: { type: String, required: true },
   cookTime: { type: String, required: true },
-  imageUrl: { type: String, required: true },
+  imageUrl: { type: String },
   RegisteredUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "RegisteredUser",
-    required: true,
   },
   comments: [
     {

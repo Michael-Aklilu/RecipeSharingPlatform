@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { FaUser, FaUserCog } from "react-icons/fa";
-import { FiMoreHorizontal } from "react-icons/fi";
 const AdminList = ({ adminService }) => {
   const [admins, setAdmins] = useState([]);
 
@@ -65,9 +64,6 @@ const TableRow = ({ adminID, username, name }) => {
       <td className="p-1.5">{adminID}</td>
       <td className="p-1.5">{username}</td>
       <td className="p-1.5">{name}</td>
-      <button className="hover:bg-stone-200 transition-colors grid place-content-center rounded text-sm size-8">
-        <FiMoreHorizontal />
-      </button>
     </tr>
   );
 };

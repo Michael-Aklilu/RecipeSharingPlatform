@@ -1,40 +1,40 @@
-import {useState} from 'react'
-import Notification from '../Notifications/Notification'
+import { useState } from "react";
+import Notification from "../Notifications/Notification";
 
-
-export default function RemoveUser({ open, setOpen, userService }) {
-  const [username,setUsername] = useState('')
-  const [error,setError] = useState('')
-  const admin = JSON.parse(window.localStorage.getItem('LoggedInAdmin'))
+export default function RemoveUser({
+  open,
+  setOpen,
+  userService,
+  setShowRemovedUser,
+}) {
+  const [error, setError] = useState("");
+  const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
+  userService.setToken(admin.token);
   if (!open) return null;
-  
+
   const handleUsername = async (event) => {
-    event.preventDefault()
-    const usernameInput = event.target.username.value
-    const users = await userService.getAllUsers()
-    await userService.setToken(admin.token)
-    
-    if(users.every((user) => user.username !== usernameInput)){
-      setError('User does not exist')
-      return
-    }
-    
-    try{
-      const userToRemove = users.find((user) => user.username === usernameInput)
-      if(userToRemove){
-        await userService.removeUser(userToRemove.id)
-        event.target.username.value = ""
-        setError("")
-        setOpen(false)
-        window.location.reload()
+    event.preventDefault();
+    try {
+      const users = await userService.getAllUsers();
+      const user = users.find(
+        (u) => u.username === event.target.username.value
+      );
+      if (!user) {
+        setError("");
+        setTimeout(() => setError("User does not exist"),0);
+        return;
+      } else {
+        await userService.removeUser(user.id);
+        event.target.username.value = "";
+        setError("");
+        setOpen(false);
+        setShowRemovedUser(user);
       }
-    }catch(error){
+    } catch (error) {
+      console.log("Error removing user");
       console.log(error);
     }
-
-  }
-
-
+  };
   return (
     <div className="fixed top-1/4 left-1/4 translate-x-1/2  p-3  bg-gray-700 rounded">
       <div className="flex justify-center items-center bg-center border border-white">
@@ -60,9 +60,7 @@ export default function RemoveUser({ open, setOpen, userService }) {
                 placeholder="Enter Username..."
               />
             </div>
-
-            <Notification error={error} setError={setError}/>
-
+            <Notification error={error} setError={setError} />
             <div className="mt-5 flex justify-evenly">
               <button
                 onClick={() => setOpen(false)}

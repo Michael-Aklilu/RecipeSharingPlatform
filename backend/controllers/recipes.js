@@ -66,13 +66,12 @@ recipeRouter.post("/", userExtractor, async (req, res) => {
 
     const user = await registeredUser.findById(RegisteredUser);
 
-    if (!user) {
-      return response.status(404).json({ error: "User not found" });
+    if (user) {
+      user.addedRecipes.push(newRecipe);
+      await user.save();
     }
-    user.addedRecipes.push(newRecipe);
-    await user.save();
 
-    const updatedRecipes = await Recipes.find({}).populate("RegisteredUser");
+    const updatedRecipes = await Recipes.find({});
 
     res.status(201).json(updatedRecipes);
   } catch (error) {
@@ -142,6 +141,7 @@ recipeRouter.put("/:id", userExtractor, async (req, res) => {
 recipeRouter.delete("/:id", userExtractor, async (req, res) => {
   try {
     const id = req.params.id;
+
     const recipe = await Recipes.findByIdAndDelete(id);
 
     if (!recipe) {
@@ -150,15 +150,14 @@ recipeRouter.delete("/:id", userExtractor, async (req, res) => {
 
     const user = await registeredUser.findOne({ addedRecipes: id });
 
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    if (user) {
+      user.addedRecipes = user.addedRecipes.filter(
+        (recipe) => recipe.toString() !== id
+      );
+
+      await user.save();
     }
 
-    user.addedRecipes = user.addedRecipes.filter(
-      (recipe) => recipe.toString() !== id
-    );
-
-    await user.save();
     res.status(204).send();
   } catch (error) {
     console.log(error);

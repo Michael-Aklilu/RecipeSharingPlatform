@@ -1,11 +1,95 @@
 import { HiOutlineBookOpen } from "react-icons/hi";
+import { useState } from "react";
+import Notification from "../Notifications/Notification";
 
-export default function AddRecipe({ open, setOpen }) {
+export default function AddRecipe({
+  open,
+  setOpen,
+  recipeService,
+  userService,
+  setAddedRecipe
+}) {
+  const [error, setError] = useState("");
+  const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
+  const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   if (!open) return null;
+
+  const handleInput = async (event) => {
+    event.preventDefault();
+    if ((event.target.title.value === "")) {
+      setError("");
+      setTimeout(() => setError("Title is missing"),0);
+      return;
+    }
+    if ((event.target.description.value === "")) {
+      setError("");
+      setTimeout(() => setError("Description is missing"),0);
+      return;
+    }
+    if ((event.target.ingredients.value === "")) {
+      setError("");
+      setTimeout(() => setError("Ingredients are missing"),0);
+      return;
+    }
+    if ((event.target.instructions.value === "")) {
+      setError("");
+      setTimeout(() => setError("Instructions are missing"),0);
+      return;
+    }
+    if ((event.target.servings.value === "")) {
+      setError("");
+      setTimeout(() => setError("Servings are missing"),0);
+      return;
+    }
+    if ((event.target.prepTime.value === "")) {
+      setError("");
+      setTimeout(() => setError("Prep time is missing"),0);
+      return;
+    }
+    if ((event.target.cookTime.value === "")) {
+      setError("");
+      setTimeout(() => setError("Cook time is missing"),0);
+      return;
+    }
+    const newRecipeByAdmin = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      ingredients: event.target.instructions.value,
+      instructions: event.target.title.value,
+      servings: event.target.servings.value,
+      prepTime: event.target.prepTime.value,
+      cookTime: event.target.cookTime.value,
+      imageUrl: event.target.imageUrl.value,
+    };
+    if (admin) {
+      adminAddRecipe(newRecipeByAdmin);
+      event.target.title.value = "";
+      event.target.description.value = "";
+      event.target.instructions.value = "";
+      event.target.title.value = "";
+      event.target.servings.value = "";
+      event.target.prepTime.value = "";
+      event.target.cookTime.value = "";
+      event.target.imageUrl.value = "";
+    }
+  };
+
+  const adminAddRecipe = async (recipe) => {
+    recipeService.setToken(admin.token);
+    try {
+      await recipeService.addRecipe(recipe);
+      setError("");
+      setOpen(false);
+      setAddedRecipe(recipe)
+    } catch (error) {
+      console.log("Error adding recipe");
+      console.log(error);
+    }
+  };
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 p-4 w-screen border flex justify-center items-center ">
-      <form className="w-1/2 max-w-5xl">
+      <form onSubmit={handleInput} className="w-1/2 max-w-5xl">
         <div className="text-white p-6 md:p-8 flex flex-col space-y-2  space-x-4  border border-white bg-gray-700 rounded-xl max-h-[60vh] overflow-y-auto">
           <h1 className="text-3xl flex justify-center font-semibold text-white gap-2 ">
             <HiOutlineBookOpen />
@@ -16,6 +100,7 @@ export default function AddRecipe({ open, setOpen }) {
             Title:{" "}
             <input
               type="text"
+              name="title"
               className="mt-5 rounded text-xl text-black p-2 ml-20"
               placeholder="Enter title ..."
             />
@@ -23,8 +108,7 @@ export default function AddRecipe({ open, setOpen }) {
           <label htmlFor="description" className="flex gap-5 text-xl">
             Description:{" "}
             <textarea
-              name=""
-              id=""
+              name="description"
               className=" text-black text-xl p-2 w-1/2 rounded"
               placeholder="Enter description ..."
             ></textarea>
@@ -32,8 +116,7 @@ export default function AddRecipe({ open, setOpen }) {
           <label htmlFor="ingredients" className="flex gap-5 text-xl">
             Ingredients:{" "}
             <textarea
-              name=""
-              id=""
+              name="ingredients"
               className=" text-black text-xl p-2 w-1/2 rounded"
               placeholder="Enter one ingredient per line (e.g., 1 cup sugar, 2 eggs)"
             ></textarea>
@@ -41,8 +124,7 @@ export default function AddRecipe({ open, setOpen }) {
           <label htmlFor="instructions" className="flex gap-5 text-xl">
             Instructions:{" "}
             <textarea
-              name=""
-              id=""
+              name="instructions"
               className=" text-black text-xl p-2 w-1/2 rounded"
               placeholder="Enter one instruction per line (e.g., Boil water, Pre-heat oven)"
             ></textarea>
@@ -51,6 +133,7 @@ export default function AddRecipe({ open, setOpen }) {
             Servings:{" "}
             <input
               type="text"
+              name="servings"
               className="mt-5 rounded text-xl text-black p-2 w-1/2 ml-10"
               placeholder="Enter the number of servings ..."
             />
@@ -59,6 +142,7 @@ export default function AddRecipe({ open, setOpen }) {
             Prep time:{" "}
             <input
               type="text"
+              name="prepTime"
               className="mt-5 rounded text-xl text-black p-2 w-1/2 m-8"
               placeholder="Enter the prep time ..."
             />
@@ -67,6 +151,7 @@ export default function AddRecipe({ open, setOpen }) {
             Cook time:
             <input
               type="text"
+              name="cookTime"
               className="mt-5 rounded text-xl text-black p-2 w-1/2 m-8"
               placeholder="Enter the cook time ..."
             />
@@ -75,10 +160,13 @@ export default function AddRecipe({ open, setOpen }) {
             Image url:{" "}
             <input
               type="text"
+              name="imageUrl"
               className="mt-5 rounded text-xl text-black p-2 w-1/2 m-8"
               placeholder="Optional image url ..."
             />
           </label>
+
+          <Notification error={error} setError={setError} />
 
           <div className="mt-5 flex justify-evenly">
             <button

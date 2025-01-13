@@ -5,8 +5,10 @@ const AdminDashboard = ({
   userService,
   recipeService,
   adminService,
-  addedUser,
-  setAddedUser
+  showAddedUser,
+  showRemovedUser,
+  addedRecipe,
+  removedRecipe,
 }) => {
   return (
     <div className="bg-white rounded-lg pb-4 shadow h-[175vh]">
@@ -16,6 +18,10 @@ const AdminDashboard = ({
         admin={admin}
         recipeService={recipeService}
         adminService={adminService}
+        showAddedUser={showAddedUser}
+        showRemovedUser={showRemovedUser}
+        addedRecipe={addedRecipe}
+        removedRecipe={removedRecipe}
       />
     </div>
   );
