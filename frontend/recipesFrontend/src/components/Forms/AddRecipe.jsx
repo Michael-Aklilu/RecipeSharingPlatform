@@ -17,31 +17,38 @@ export default function AddRecipe({
   const handleInput = async (event) => {
     event.preventDefault();
     if ((event.target.title.value === "")) {
-      setError("Title is missing");
+      setError("");
+      setTimeout(() => setError("Title is missing"),0);
       return;
     }
     if ((event.target.description.value === "")) {
-      setError("Description is missing");
+      setError("");
+      setTimeout(() => setError("Description is missing"),0);
       return;
     }
     if ((event.target.ingredients.value === "")) {
-      setError("Ingredients are missing");
+      setError("");
+      setTimeout(() => setError("Ingredients are missing"),0);
       return;
     }
     if ((event.target.instructions.value === "")) {
-      setError("Instructions are missing");
+      setError("");
+      setTimeout(() => setError("Instructions are missing"),0);
       return;
     }
     if ((event.target.servings.value === "")) {
-      setError("Servings are missing");
+      setError("");
+      setTimeout(() => setError("Servings are missing"),0);
       return;
     }
     if ((event.target.prepTime.value === "")) {
-      setError("Prep time is missing");
+      setError("");
+      setTimeout(() => setError("Prep time is missing"),0);
       return;
     }
     if ((event.target.cookTime.value === "")) {
-      setError("Cook time is missing");
+      setError("");
+      setTimeout(() => setError("Cook time is missing"),0);
       return;
     }
     const newRecipeByAdmin = {

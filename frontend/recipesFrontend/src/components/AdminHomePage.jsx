@@ -25,6 +25,7 @@ const AdminHomePage = ({}) => {
   const [showAddedUser, setShowAddedUser] = useState("");
   const [showRemovedUser, setShowRemovedUser] = useState("");
   const [addedRecipe, setAddedRecipe] = useState("");
+  const [removedRecipe, setRemovedRecipe] = useState("")
   const [admin, setAdmin] = useState(null);
 
   useEffect(() => {
@@ -70,9 +71,10 @@ const AdminHomePage = ({}) => {
         open={openRemoveRecipe}
         setOpen={setOpenRemoveRecipe}
         recipeService={recipeService}
+        setRemovedRecipe={setRemovedRecipe}
       />
       <RemoveComment open={openRemoveComment} setOpen={setOpenRemoveComment} />
-      <SignOut open={openSignOut} setOpenSignOut={setOpenSignOut} />
+      <SignOut open={openSignOut} setOpen={setOpenSignOut} />
       <AdminDashboard
         admin={admin}
         userService={userService}
@@ -81,6 +83,7 @@ const AdminHomePage = ({}) => {
         showAddedUser={showAddedUser}
         showRemovedUser={showRemovedUser}
         addedRecipe={addedRecipe}
+        removedRecipe={removedRecipe}
       />
     </div>
   );

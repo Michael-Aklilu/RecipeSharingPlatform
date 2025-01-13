@@ -1,10 +1,20 @@
+import { useNavigate } from "react-router-dom";
+
 export default function SignOut({ open, setOpen }) {
+  const navigate = useNavigate();
   if (!open) return null;
+
+  const handleSignout = (event) => {
+    event.preventDefault();
+    window.localStorage.clear();
+    navigate("/AdminLogin");
+  };
+
   return (
     <div className="fixed top-1/4 left-1/4 translate-x-1/2  p-3  bg-gray-700 rounded">
       <div className="flex justify-center items-center bg-center border border-white">
         <div className="w-96 p-6 shadow-lg bg-gray-700 rounded-md ">
-          <form>
+          <form onSubmit={handleSignout}>
             <h1 className="text-3xl block text-center font-semibold text-white ">
               <i className="fa-solid fa-user text-white"></i> Sign Out
             </h1>

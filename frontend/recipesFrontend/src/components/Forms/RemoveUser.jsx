@@ -20,7 +20,8 @@ export default function RemoveUser({
         (u) => u.username === event.target.username.value
       );
       if (!user) {
-        setError("User does not exist");
+        setError("");
+        setTimeout(() => setError("User does not exist"),0);
         return;
       } else {
         await userService.removeUser(user.id);

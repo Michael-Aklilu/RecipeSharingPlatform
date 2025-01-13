@@ -10,7 +10,8 @@ const DashboardGrid = ({
   adminService,
   showAddedUser,
   showRemovedUser,
-  addedRecipe
+  addedRecipe,
+  removedRecipe,
 }) => {
   return (
     <div className="px-4 grid gap-3 grid-cols-12">
@@ -25,7 +26,11 @@ const DashboardGrid = ({
         showAddedUser={showAddedUser}
         showRemovedUser={showRemovedUser}
       />
-      <RecipesList recipeService={recipeService} addedRecipe={addedRecipe} />
+      <RecipesList
+        recipeService={recipeService}
+        addedRecipe={addedRecipe}
+        removedRecipe={removedRecipe}
+      />
       <AdminList adminService={adminService} />
     </div>
   );

@@ -16,20 +16,25 @@ const AddUser = ({ open, setOpen, userService, setShowAddedUser }) => {
 
 
     if (nameInput.length < 5) {
-      setError("Name too short");
+      setError("");
+      setTimeout(() => setError("Name too short"),0); 
       return;
+      
     } else if (users.some((user) => user.name === nameInput)) {
-      setError("Name already exists");
+      setError("");
+      setTimeout(() => setError("Name already exists"),0);
       return;
     }
 
     if (users.some((user) => user.username === usernameInput)) {
-      setError("Username already exists");
+      setError("");
+      setTimeout(() => setError("Username already exists"),0);
       return;
     }
 
     if (passwordInput.length < 5) {
-      setError("Password too short");
+      setError("");
+      setTimeout(() => setError("Password too short"),0);
       return;
     }
     const newUser = {

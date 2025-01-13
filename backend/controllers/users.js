@@ -6,7 +6,9 @@ const { userExtractor } = require("../utils/middleware");
 userRouter.use(userExtractor);
 userRouter.get("/", async (req, res) => {
   try {
-    const users = await registeredUser.find({});
+    const users = await registeredUser
+      .find({})
+      .populate({ path: "addedRecipes" });
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: "An error occurred while fetching users." });
