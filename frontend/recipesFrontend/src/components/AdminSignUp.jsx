@@ -1,15 +1,37 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import adminSignUpService from "../services/adminSignUp";
+import Notification from "./Notifications/Notification";
+
 
 const AdminSignUp = ({ setLoggedInAdmin }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (name.length < 5) {
+      setError("");
+      setTimeout(() => setError("Name is too short"), 0);
+      return;
+    }
+
+    if (username.length < 3) {
+      setError("");
+      setTimeout(() => setError("Username is too short"), 0);
+      return;
+    }
+
+    if (password.length < 5) {
+      setError("");
+      setTimeout(() => setError("Password is too short"), 0);
+      return;
+    }
+
     try {
       const admin = await adminSignUpService.signUp({
         username,
@@ -21,7 +43,10 @@ const AdminSignUp = ({ setLoggedInAdmin }) => {
       setPassword("");
       if (admin) navigate("/AdminHome");
     } catch {
+      setError("");
+      setTimeout(() => setError("Account not created"), 0);
       console.log("Account not created");
+      return
     }
     event.target.name.value = "";
     event.target.username.value = "";
@@ -93,6 +118,8 @@ const AdminSignUp = ({ setLoggedInAdmin }) => {
               placeholder="Enter Password..."
             />
           </div>
+
+          <Notification error={error} setError={setError} />
           <div className="mt-5 flex justify-center">
             <button
               type="submit"

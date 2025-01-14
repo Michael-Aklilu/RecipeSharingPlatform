@@ -3,14 +3,28 @@ import { Link, useNavigate } from "react-router-dom";
 import adminLoginService from "../services/adminLogin";
 import recipeService from "../services/recipes";
 import userService from "../services/users";
+import Notification from "./Notifications/Notification";
 
 const AdminLogin = ({ setLoggedInAdmin }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if ((username === "")) {
+      setError("");
+      setTimeout(() => setError("Username is missing"), 0);
+      return;
+    }
+    if ((password === "")) {
+      setError("");
+      setTimeout(() => setError("Password is missing"), 0);
+      return;
+    }
+
     try {
       const admin = await adminLoginService.login({ username, password });
       recipeService.setToken(admin.token);
@@ -23,7 +37,10 @@ const AdminLogin = ({ setLoggedInAdmin }) => {
 
       if (admin) navigate("/AdminHome");
     } catch {
+      setError("");
+      setTimeout(() => setError("Wrong credentials"), 0);
       console.log("Wrong credentials");
+      return;
     }
     event.target.username.value = "";
     event.target.password.value = "";
@@ -77,6 +94,8 @@ const AdminLogin = ({ setLoggedInAdmin }) => {
               placeholder="Enter Password..."
             />
           </div>
+
+          <Notification error={error} setError={setError}/>
 
           <div className="mt-5 flex justify-center">
             <button

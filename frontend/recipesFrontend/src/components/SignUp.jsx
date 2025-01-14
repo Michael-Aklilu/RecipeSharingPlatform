@@ -1,23 +1,51 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import signUpService from "../services/signUp";
+import Notification from "./Notifications/Notification";
+import userService from "../services/users";
 
 const SignUp = ({ setLoggedInUser }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (name.length < 5) {
+      setError("");
+      setTimeout(() => setError("Name is too short"), 0);
+      return;
+    }
+    if (username.length < 3) {
+      setError("");
+      setTimeout(() => setError("Username is too short"), 0);
+      return;
+    }
+    if (password.length < 5) {
+      setError("");
+      setTimeout(() => setError("Password is too short"), 0);
+      return;
+    }
     try {
+      const users = await userService.getAllUsers();
+      const duplicateUser = users.find((u) => u.username === username);
+      if (duplicateUser) {
+        setError("");
+        setTimeout(() => setError("Username is taken"), 0);
+        return;
+      }
       const user = await signUpService.signUp({ username, name, password });
       setLoggedInUser(user);
       setUsername("");
       setPassword("");
       if (user) navigate("/UserHome");
     } catch {
+      setError("");
+      setTimeout(() => setError("Account not created"), 0);
       console.log("Account not created");
+      return;
     }
     event.target.name.value = "";
     event.target.username.value = "";
@@ -89,6 +117,8 @@ const SignUp = ({ setLoggedInUser }) => {
               placeholder="Enter Password..."
             />
           </div>
+          <Notification error={error} setError={setError} />
+
           <div className="mt-5 flex justify-center">
             <button
               type="submit"
@@ -99,10 +129,10 @@ const SignUp = ({ setLoggedInUser }) => {
           </div>
           <div className="mt-3 flex ">
             <button
-              onClick={(event) =>{
-                event.preventDefault()
-                navigate("/userHome")}
-              } 
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("/userHome");
+              }}
               className="text-white"
             >
               Browse as guest?

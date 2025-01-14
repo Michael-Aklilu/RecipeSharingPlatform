@@ -43,7 +43,7 @@ const Navbar = () => {
         </li>
         <li className="p-4">
           <button
-            onClick={() => navigate("/adminSignUp")}
+            onClick={() => navigate("/adminLogin")}
             className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
           >
             Admin
