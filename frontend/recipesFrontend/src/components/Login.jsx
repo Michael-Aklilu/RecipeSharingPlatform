@@ -85,9 +85,15 @@ const Login = ({ setLoggedInUser }) => {
             </button>
           </div>
           <div className="mt-3 flex ">
-            <a className="text-white" href="">
-              Forgot Password?
-            </a>
+            <button
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("/userHome");
+              }}
+              className="text-white"
+            >
+              Browse as guest?
+            </button>
           </div>
 
           <div className="mt-1 flex ">

@@ -1,20 +1,54 @@
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [nav, setNav] = useState(true);
+  const navigate = useNavigate();
 
   const handleNav = () => {
     setNav(!nav);
   };
   return (
-    <div className=" justify-evenly flex items-center h-24 max-w-full mx-auto px-4 text-white bg-gray-700 text-lg">
-      <h1 className="w-full text-3xl font-bold text-stone-200 ">TASTY BITES</h1>
-      <ul className="hidden md:flex">
-        <li className="p-4">Home</li>
-        <li className="p-4">Recipes</li>
-        <li className="p-4">Login</li>
-        <li className="p-4">Register</li>
-        <li className="p-4">Admin</li>
+    <div className=" justify-around flex items-center h-24 max-w-full mx-auto px-4 text-white bg-gray-700 text-lg">
+      <h1 className="w-1/3 text-3xl font-bold text-stone-200 ">TASTY BITES</h1>
+      <ul className="hidden md:flex text-xl ">
+        <li className="p-4">
+          <button className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2">
+            Home
+          </button>
+        </li>
+        <li className="p-4">
+          <button
+            onClick={() => navigate("/")}
+            className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+          >
+            Recipes
+          </button>
+        </li>
+        <li className="p-4">
+          <button
+            onClick={() => navigate("/login")}
+            className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+          >
+            Login
+          </button>
+        </li>
+        <li className="p-4">
+          <button
+            onClick={() => navigate("/signUp")}
+            className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+          >
+            Register
+          </button>
+        </li>
+        <li className="p-4">
+          <button
+            onClick={() => navigate("/adminSignUp")}
+            className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+          >
+            Admin
+          </button>
+        </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {!nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -29,11 +63,44 @@ const Navbar = () => {
         <h1 className="w-full text-3xl font-bold text-stone-300 m-4">
           TASTY BITES
         </h1>
-        <ul className="uppercase bg-gray-700 p-4">
-          <li className="p-4 border-b border-stone-300">Home</li>
-          <li className="p-4 border-b border-stone-300">Login</li>
-          <li className="p-4 border-b border-stone-300">Register</li>
-          <li className="p-4 ">Admin</li>
+        <ul className=" bg-gray-700 p-4">
+          <li className="p-4 border-b border-stone-300">
+            <button className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2">
+              Home
+            </button>
+          </li>
+          <li className="p-4 border-b border-stone-300">
+            <button
+              onClick={() => navigate("/")}
+              className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+            >
+              Recipes
+            </button>
+          </li>
+          <li className="p-4 border-b border-stone-300">
+            <button
+              onClick={() => navigate("/login")}
+              className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+            >
+              Login
+            </button>
+          </li>
+          <li className="p-4 border-b border-stone-300">
+            <button
+              onClick={() => navigate("/signUp")}
+              className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+            >
+              Register
+            </button>
+          </li>
+          <li className="p-4 ">
+            <button
+              onClick={() => navigate("/adminSignUp")}
+              className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
+            >
+              Admin
+            </button>
+          </li>
         </ul>
       </div>
     </div>

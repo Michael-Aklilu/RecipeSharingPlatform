@@ -87,9 +87,16 @@ const AdminLogin = ({ setLoggedInAdmin }) => {
             </button>
           </div>
           <div className="mt-3 flex ">
-            <a className="text-white" href="">
-              Forgot Password?
-            </a>
+            <button
+              onClick={(event) => {
+                event.preventDefault();
+                navigate("/login");
+              }}
+              className="text-white"
+              href=""
+            >
+              Sign in as user?
+            </button>
           </div>
 
           <div className="mt-1 flex ">
