@@ -5,12 +5,16 @@ const admin = require("../models/admin");
 
 adminLoginRouter.post("/", async (req, res) => {
   const { username, password } = req.body;
-  const user = await admin.findOne({ username });
-  const correctPassword =
-    admin == null ? false : bcrypt.compare(password, user.passwordHash);
+  try {
+    const user = await admin.findOne({ username });
+    const correctPassword =
+      admin == null ? false : bcrypt.compare(password, user.passwordHash);
+  } catch (error) {
+    console.log(error);
+  }
 
   if (!(user && correctPassword)) {
-    return res.status(401).send({ error: "invalid username or password" });
+    return res.status(401).send({ error: "Invalid username or password" });
   }
 
   const userForToken = {
