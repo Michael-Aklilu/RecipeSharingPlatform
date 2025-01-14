@@ -9,7 +9,10 @@ export default function RemoveUser({
 }) {
   const [error, setError] = useState("");
   const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
-  userService.setToken(admin.token);
+  if(admin){
+    userService.setToken(admin.token);
+  }
+
   if (!open) return null;
 
   const handleUsername = async (event) => {

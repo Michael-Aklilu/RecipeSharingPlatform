@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import adminSignUpService from "../services/adminSignUp";
 import Notification from "./Notifications/Notification";
 
-
 const AdminSignUp = ({ setLoggedInAdmin }) => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -39,6 +38,7 @@ const AdminSignUp = ({ setLoggedInAdmin }) => {
         password,
       });
       setLoggedInAdmin(admin);
+      window.localStorage.setItem("LoggedInAdmin", JSON.stringify(admin));
       setUsername("");
       setPassword("");
       if (admin) navigate("/AdminHome");
@@ -46,7 +46,7 @@ const AdminSignUp = ({ setLoggedInAdmin }) => {
       setError("");
       setTimeout(() => setError("Account not created"), 0);
       console.log("Account not created");
-      return
+      return;
     }
     event.target.name.value = "";
     event.target.username.value = "";

@@ -17,8 +17,9 @@ const UsersList = ({ userService, showAddedUser, showRemovedUser }) => {
 
   const getUsers = async () => {
     try {
-      const adminJSON = localStorage.getItem("LoggedInAdmin");
+      const adminJSON = window.localStorage.getItem("LoggedInAdmin");
       const admin = JSON.parse(adminJSON);
+  
       await userService.setToken(admin.token);
       const allUsers = await userService.getAllUsers();
       setUsers(allUsers);
