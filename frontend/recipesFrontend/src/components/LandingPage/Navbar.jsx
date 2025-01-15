@@ -46,7 +46,7 @@ const Navbar = () => {
             onClick={() => navigate("/adminLogin")}
             className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
           >
-            Admin
+            Null
           </button>
         </li>
       </ul>
@@ -98,7 +98,7 @@ const Navbar = () => {
               onClick={() => navigate("/adminSignUp")}
               className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
             >
-              Admin
+              Null
             </button>
           </li>
         </ul>

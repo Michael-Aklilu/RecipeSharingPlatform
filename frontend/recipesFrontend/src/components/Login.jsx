@@ -33,7 +33,7 @@ const Login = ({ setLoggedInUser }) => {
 
       window.localStorage.setItem("LoggedInUser", JSON.stringify(user));
 
-      if (user) navigate("/UserHome");
+      if (user) navigate("/UserProfile");
     } catch {
       setError("");
       setTimeout(() => setError("Wrong credentials"), 0);
@@ -106,7 +106,7 @@ const Login = ({ setLoggedInUser }) => {
             <button
               onClick={(event) => {
                 event.preventDefault();
-                navigate("/userHome");
+                navigate("/LandingPage");
               }}
               className="text-white"
             >

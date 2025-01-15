@@ -40,7 +40,7 @@ const SignUp = ({ setLoggedInUser }) => {
       setLoggedInUser(user);
       setUsername("");
       setPassword("");
-      if (user) navigate("/UserHome");
+      if (user) navigate("/UserProfile");
     } catch {
       setError("");
       setTimeout(() => setError("Account not created"), 0);
@@ -131,7 +131,7 @@ const SignUp = ({ setLoggedInUser }) => {
             <button
               onClick={(event) => {
                 event.preventDefault();
-                navigate("/userHome");
+                navigate("/LandingPage");
               }}
               className="text-white"
             >

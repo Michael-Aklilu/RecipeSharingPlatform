@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UserHomePage from "./components/userHomePage";
+import LandingPage from "./components/LandingPage";
 import AdminHomePage from "./components/AdminHomePage";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
@@ -44,7 +44,7 @@ function App() {
             />
           }
         ></Route>
-        <Route path="/UserHome" element={<UserHomePage />}></Route>
+        <Route path="/LandingPage" element={<LandingPage />}></Route>
         <Route
           path="/login"
           element={<Login setLoggedInUser={setLoggedInUser} />}
