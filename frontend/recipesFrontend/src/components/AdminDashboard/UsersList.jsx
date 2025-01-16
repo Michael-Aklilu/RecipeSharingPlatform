@@ -19,7 +19,7 @@ const UsersList = ({ userService, showAddedUser, showRemovedUser }) => {
     try {
       const adminJSON = window.localStorage.getItem("LoggedInAdmin");
       const admin = JSON.parse(adminJSON);
-  
+
       await userService.setToken(admin.token);
       const allUsers = await userService.getAllUsers();
       setUsers(allUsers);
@@ -29,29 +29,31 @@ const UsersList = ({ userService, showAddedUser, showRemovedUser }) => {
   };
 
   return (
-    <div className="col-span-12 p-4 border border-stone-300 mt-8">
+    <div className="col-span-3 p-4 border border-stone-300 mt-8">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="flex items-center gap-1.5 font-medium text-lg">
           <FiUser size={21} />
           Users List
         </h3>
       </div>
-      <table className="w-full table-auto">
-        <TableHead />
-        <tbody>
-          {users.map((user) => {
-            return (
-              <TableRow
-                key={user.id}
-                userID={user.id}
-                username={user.username}
-                name={user.name}
-                recipesNumber={user.addedRecipes.length}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto sm:max-h-[400px] max-h-[150px] overflow-y-auto">
+        <table className="w-full table-auto">
+          <TableHead />
+          <tbody>
+            {users.map((user) => {
+              return (
+                <TableRow
+                  key={user.id}
+                  userID={user.id}
+                  username={user.username}
+                  name={user.name}
+                  recipesNumber={user.addedRecipes.length}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

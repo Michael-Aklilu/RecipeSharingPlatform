@@ -7,7 +7,7 @@ export default function AddRecipe({
   setOpen,
   recipeService,
   userService,
-  setAddedRecipe
+  setAddedRecipe,
 }) {
   const [error, setError] = useState("");
   const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
@@ -16,39 +16,39 @@ export default function AddRecipe({
 
   const handleInput = async (event) => {
     event.preventDefault();
-    if ((event.target.title.value === "")) {
+    if (event.target.title.value === "") {
       setError("");
-      setTimeout(() => setError("Title is missing"),0);
+      setTimeout(() => setError("Title is missing"), 0);
       return;
     }
-    if ((event.target.description.value === "")) {
+    if (event.target.description.value === "") {
       setError("");
-      setTimeout(() => setError("Description is missing"),0);
+      setTimeout(() => setError("Description is missing"), 0);
       return;
     }
-    if ((event.target.ingredients.value === "")) {
+    if (event.target.ingredients.value === "") {
       setError("");
-      setTimeout(() => setError("Ingredients are missing"),0);
+      setTimeout(() => setError("Ingredients are missing"), 0);
       return;
     }
-    if ((event.target.instructions.value === "")) {
+    if (event.target.instructions.value === "") {
       setError("");
-      setTimeout(() => setError("Instructions are missing"),0);
+      setTimeout(() => setError("Instructions are missing"), 0);
       return;
     }
-    if ((event.target.servings.value === "")) {
+    if (event.target.servings.value === "") {
       setError("");
-      setTimeout(() => setError("Servings are missing"),0);
+      setTimeout(() => setError("Servings are missing"), 0);
       return;
     }
-    if ((event.target.prepTime.value === "")) {
+    if (event.target.prepTime.value === "") {
       setError("");
-      setTimeout(() => setError("Prep time is missing"),0);
+      setTimeout(() => setError("Prep time is missing"), 0);
       return;
     }
-    if ((event.target.cookTime.value === "")) {
+    if (event.target.cookTime.value === "") {
       setError("");
-      setTimeout(() => setError("Cook time is missing"),0);
+      setTimeout(() => setError("Cook time is missing"), 0);
       return;
     }
     const newRecipeByAdmin = {
@@ -80,7 +80,7 @@ export default function AddRecipe({
       await recipeService.addRecipe(recipe);
       setError("");
       setOpen(false);
-      setAddedRecipe(recipe)
+      setAddedRecipe(recipe);
     } catch (error) {
       console.log("Error adding recipe");
       console.log(error);
@@ -88,81 +88,84 @@ export default function AddRecipe({
   };
 
   return (
-    <div className="fixed top-0 left-0 right-0 bottom-0 p-4 w-screen border flex justify-center items-center ">
-      <form onSubmit={handleInput} className="w-1/2 max-w-5xl">
-        <div className="text-white p-6 md:p-8 flex flex-col space-y-2  space-x-4  border border-white bg-gray-700 rounded-xl max-h-[60vh] overflow-y-auto">
-          <h1 className="text-3xl flex justify-center font-semibold text-white gap-2 ">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 p-4">
+      <form
+        onSubmit={handleInput}
+        className="w-full max-w-3xl bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+      >
+        <div className="text-white p-6 md:p-8 flex flex-col space-y-4 border border-white bg-gray-700 rounded-xl max-h-[80vh] overflow-y-auto">
+          <h1 className="text-2xl md:text-3xl flex justify-center font-semibold text-white gap-2">
             <HiOutlineBookOpen />
             Add Recipe
           </h1>
           <hr className="border border-white" />
-          <label htmlFor="title" className="text-xl ">
-            Title:{" "}
+          <label htmlFor="title" className="text-lg md:text-xl">
+            Title:
             <input
               type="text"
               name="title"
-              className="mt-5 rounded text-xl text-black p-2 ml-20"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter title ..."
             />
           </label>
-          <label htmlFor="description" className="flex gap-5 text-xl">
-            Description:{" "}
+          <label htmlFor="description" className="text-lg md:text-xl">
+            Description:
             <textarea
               name="description"
-              className=" text-black text-xl p-2 w-1/2 rounded"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter description ..."
             ></textarea>
           </label>
-          <label htmlFor="ingredients" className="flex gap-5 text-xl">
-            Ingredients:{" "}
+          <label htmlFor="ingredients" className="text-lg md:text-xl">
+            Ingredients:
             <textarea
               name="ingredients"
-              className=" text-black text-xl p-2 w-1/2 rounded"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter one ingredient per line (e.g., 1 cup sugar, 2 eggs)"
             ></textarea>
           </label>
-          <label htmlFor="instructions" className="flex gap-5 text-xl">
-            Instructions:{" "}
+          <label htmlFor="instructions" className="text-lg md:text-xl">
+            Instructions:
             <textarea
               name="instructions"
-              className=" text-black text-xl p-2 w-1/2 rounded"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter one instruction per line (e.g., Boil water, Pre-heat oven)"
             ></textarea>
           </label>
-          <label htmlFor="servings" className="text-xl">
-            Servings:{" "}
+          <label htmlFor="servings" className="text-lg md:text-xl">
+            Servings:
             <input
               type="text"
               name="servings"
-              className="mt-5 rounded text-xl text-black p-2 w-1/2 ml-10"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter the number of servings ..."
             />
           </label>
-          <label htmlFor="prep-time" className="text-xl ">
-            Prep time:{" "}
+          <label htmlFor="prep-time" className="text-lg md:text-xl">
+            Prep Time:
             <input
               type="text"
               name="prepTime"
-              className="mt-5 rounded text-xl text-black p-2 w-1/2 m-8"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter the prep time ..."
             />
           </label>
-          <label htmlFor="Cook time" className="text-xl ">
-            Cook time:
+          <label htmlFor="cook-time" className="text-lg md:text-xl">
+            Cook Time:
             <input
               type="text"
               name="cookTime"
-              className="mt-5 rounded text-xl text-black p-2 w-1/2 m-8"
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter the cook time ..."
             />
           </label>
-          <label htmlFor="Cook time" className="text-xl ">
-            Image url:{" "}
+          <label htmlFor="imageUrl" className="text-lg md:text-xl">
+            Image URL:
             <input
               type="text"
               name="imageUrl"
-              className="mt-5 rounded text-xl text-black p-2 w-1/2 m-8"
-              placeholder="Optional image url ..."
+              className="block w-full mt-2 p-2 rounded text-black text-lg"
+              placeholder="Optional image URL ..."
             />
           </label>
 
@@ -171,13 +174,13 @@ export default function AddRecipe({
           <div className="mt-5 flex justify-evenly">
             <button
               onClick={() => setOpen(false)}
-              className="border-2 border-white-600  bg-white text-gray-700  p-2 w-1/4 rounded-md"
+              className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
             >
               Close
             </button>
             <button
               type="submit"
-              className="border-2 border-white-600 w-1/4  bg-white text-gray-700 p-2 rounded-md"
+              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
               Add
             </button>

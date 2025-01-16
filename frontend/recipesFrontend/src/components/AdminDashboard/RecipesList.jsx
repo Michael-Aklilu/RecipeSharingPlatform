@@ -28,38 +28,40 @@ const RecipesList = ({ recipeService, addedRecipe, removedRecipe }) => {
     }
   };
   return (
-    <div className="col-span-12 p-4 rounded border border-stone-300 mt-8">
+    <div className="col-span-3 p-4 border border-stone-300 mt-8">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="flex items-center gap-1.5 font-medium text-lg">
           <FaBook size={21} />
           Recipes List
         </h3>
       </div>
-      <table className="w-full table-auto">
-        <TableHead />
+      <div className="overflow-x-auto sm:max-h-[400px] overflow-y-auto max-h-[150px]">
+        <table className="w-full table-auto">
+          <TableHead />
 
-        <tbody>
-          {recipes.map((recipe) => {
-            return (
-              <TableRow
-                key={recipe.id}
-                recipeID={recipe.id}
-                userID={
-                  recipe.RegisteredUser
-                    ? recipe.RegisteredUser.id
-                    : "Admin Owned"
-                }
-                recipeName={recipe.title}
-                ownerName={
-                  recipe.RegisteredUser
-                    ? recipe.RegisteredUser.username
-                    : "Admin Owned"
-                }
-              />
-            );
-          })}
-        </tbody>
-      </table>
+          <tbody>
+            {recipes.map((recipe) => {
+              return (
+                <TableRow
+                  key={recipe.id}
+                  recipeID={recipe.id}
+                  userID={
+                    recipe.RegisteredUser
+                      ? recipe.RegisteredUser.id
+                      : "Admin Owned"
+                  }
+                  recipeName={recipe.title}
+                  ownerName={
+                    recipe.RegisteredUser
+                      ? recipe.RegisteredUser.username
+                      : "Admin Owned"
+                  }
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

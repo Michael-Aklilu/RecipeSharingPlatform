@@ -44,7 +44,7 @@ export default function RemoveRecipe({ open, setOpen, recipeService, setRemovedR
   };
 
   return (
-    <div className="fixed top-1/4 left-1/4 translate-x-1/2  p-3  bg-gray-700 rounded">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 p-4">
       <div className="flex justify-center items-center bg-center border border-white">
         <div className="w-96 p-6 shadow-lg bg-gray-700 rounded-md ">
           <form onSubmit={handleInput}>
@@ -87,13 +87,13 @@ export default function RemoveRecipe({ open, setOpen, recipeService, setRemovedR
             <div className="mt-5 flex justify-evenly">
               <button
                 onClick={() => setOpen(false)}
-                className="border-2 border-white-600  bg-white text-gray-700 p-2 h-1/2 rounded-md"
+                className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
               >
                 Close
               </button>
               <button
                 type="submit"
-                className="border-2 border-white-600  bg-white text-gray-700 p-2 h-1/2 rounded-md"
+                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
               >
                 Remove
               </button>

@@ -29,20 +29,20 @@ const NumberCards = ({ userService, admin, recipeService, adminService }) => {
   };
 
   return (
-    <>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-3 w-full text-center">
       <Card title="Users" value={noOfUsers} />
       <Card title="Recipes" value={noOfRecipes} />
       <Card title="Admins" value={noOfAdmins} />
-    </>
+    </div>
   );
 };
 
 const Card = ({ title, value }) => {
   return (
-    <div className="p-4 rounded bg-stone-300 col-span-4">
-      <div className="flex mb-8 items-start justify-between">
-        <div>
-          <h3 className="text-stone-500 mb-2 text-lg">{title}</h3>
+    <div className="p-4 rounded bg-stone-300" >
+      <div>
+        <div >
+          <h3 className="text-stone-500 mb-2 text-lg sm:text-sm md:text-lg lg:text-xl">{title}</h3>
           <p className="text-3xl font-semibold text-center">{value}</p>
         </div>
       </div>

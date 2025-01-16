@@ -19,13 +19,14 @@ const AdminList = ({ adminService }) => {
     }
   };
   return (
-    <div className="col-span-12 p-4 rounded border border-stone-300 mt-8">
+    <div className="col-span-3 p-4 border border-stone-300 mt-8">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="flex items-center gap-1.5 font-medium text-lg">
           <FaUserCog size={21} />
           Admin List
         </h3>
       </div>
+      <div className="overflow-x-auto sm:max-h-[400px] max-h-[150px] overflow-y-auto">
       <table className="w-full table-auto">
         <TableHead />
         <tbody>
@@ -41,6 +42,7 @@ const AdminList = ({ adminService }) => {
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

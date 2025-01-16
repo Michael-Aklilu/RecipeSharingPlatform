@@ -16,8 +16,8 @@ const AdminSidebar = ({
   setOpenAddAdmin,
 }) => {
   return (
-    <div className="bg-gray-700 rounded-lg">
-      <div className="overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)]">
+    <div className="bg-gray-700 rounded-lg ">
+      <div className="overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)] ">
         <AdminAccount admin={admin} />
         <AdminSearch
           setOpenAddUser={setOpenAddUser}
