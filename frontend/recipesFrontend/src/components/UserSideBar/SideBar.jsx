@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Search from "./Search";
 import Account from "./Account";
 import RouteSelect from "./RouteSelect";
@@ -16,11 +15,9 @@ export default function SideBar({
   user,
   setOpenAddAdmin,
 }) {
-  const [nav,setNav] = useState(false)
   return (
     <div>
-      <div className={nav ? "fixed left-[-100%]":"bg-gray-700 rounded-lg "}
-    >
+      <div className="bg-gray-700 rounded-lg ">
         <div className="overflow-y-scroll sticky top-4 h-[calc(100vh-32px-48px)] ">
           <Account user={user} />
           <Search

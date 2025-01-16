@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import AdminLogin from "./components/AdminLogin";
 import AdminSignUp from "./components/AdminSignUp";
-import UserProfile from "./components/UserDashboard";
+import UserProfile from "./components/UserHomePage";
 import recipeService from "./services/recipes";
 import userService from "./services/users";
 import { useState, useEffect } from "react";

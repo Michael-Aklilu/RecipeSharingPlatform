@@ -7,7 +7,7 @@ export default function SignOut({ open, setOpen }) {
   const handleSignout = (event) => {
     event.preventDefault();
     window.localStorage.clear();
-    navigate("/AdminLogin");
+    navigate("/Login");
   };
 
   return (

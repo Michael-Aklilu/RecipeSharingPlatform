@@ -64,7 +64,7 @@ const Route = ({ selected, icon: Icon, title, onClick }) => {
   return (
     <button
       onClick={onClick}
-      className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5  transition-[box-shadow,_background-color,_color] hover:bg-stone-300 bg-transparent shadow-none text-lg`}
+      className={`flex items-center justify-start gap-2 w-full rounded px-2 py-1.5  transition-[box-shadow,_background-color,_color] hover:bg-stone-300 bg-transparent shadow-none text-md`}
     >
       <Icon />
       <span>{title}</span>
