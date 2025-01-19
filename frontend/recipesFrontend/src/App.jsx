@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import AdminLogin from "./components/AdminLogin";
 import AdminSignUp from "./components/AdminSignUp";
 import UserProfile from "./components/UserHomePage";
+import Recipes from "./components/HomePage";
 import recipeService from "./services/recipes";
 import userService from "./services/users";
 import { useState, useEffect } from "react";
@@ -63,6 +64,7 @@ function App() {
         ></Route>
         <Route path="/UserProfile" element={<UserProfile />}></Route>
         <Route />
+        <Route path="/Home" element={<Recipes/>}></Route>
       </Routes>
     </Router>
   );

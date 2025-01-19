@@ -5,7 +5,7 @@ import Cards from "./LandingPage/Cards";
 import Footer from "./LandingPage/Footer";
 const LandingPage = () => {
   return (
-    <div className="bg-stone-300 w-full">
+    <div className="bg-white w-full">
       <Navbar />
       <Hero />
       <Recipes />

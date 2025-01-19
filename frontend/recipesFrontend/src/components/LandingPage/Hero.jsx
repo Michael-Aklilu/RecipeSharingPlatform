@@ -1,7 +1,7 @@
 import { ReactTyped } from "react-typed";
 export default function Hero() {
   return (
-    <div className="text-stone-800 bg-stone-300">
+    <div className="text-stone-800 bg-white">
       <div className="max-w-[800px] mt-[96px] w-full h-screen mx-auto text-center flex flex-col justify-center ">
        
         <h1 className="md:text-7xl sm:text-6xl text-4xl font-bold">
