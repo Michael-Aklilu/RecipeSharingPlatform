@@ -1,13 +1,29 @@
 import Header from "./HomePage/Header";
 import Categories from "./HomePage/Categories";
-import { categoryList, recipes } from "../fakeData/home";
-import { useState } from "react";
+import { categoryList} from "../fakeData/home";
+import { useState, useEffect } from "react";
 import RecipeGridItem from "./HomePage/RecipeGridItem";
 import SideBar from "./HomePage/SideBar";
 import { SideBarProvider } from "../context/SideBar";
+import recipeService from "../services/recipes"
 
 export default function Recipes() {
   const [selectedCategory, setSelectedCategory] = useState(categoryList[0]);
+  const [recipes, setRecipes] = useState([])
+
+  useEffect(() =>{
+    fetchRecipes()
+  },[recipes])
+
+  const fetchRecipes = async() => {
+    try{
+      const dbRecipes = await recipeService.showAllRecipes()
+      setRecipes(dbRecipes)
+    }catch(error){
+      console.log("Error fetching recipes");
+    }
+   
+  }
   return (
     <SideBarProvider>
       <div className=" flex flex-col">

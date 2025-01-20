@@ -1,6 +1,7 @@
 import { HiOutlineBookOpen } from "react-icons/hi";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Notification from "../Notifications/Notification";
+
 
 export default function AddRecipe({
   open,
@@ -10,9 +11,24 @@ export default function AddRecipe({
   setAddedRecipe,
 }) {
   const [error, setError] = useState("");
+  const [myUser, setMyUser] = useState("");
   const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   if (!open) return null;
+ 
+
+
+  const fetchUser = async () => {
+    try {
+      const users = await userService.getAllUsers();
+      const addingUser = users.find((u) => u.name === user.name);
+      
+      setMyUser(addingUser);
+    } catch (error) {
+      console.log("Error fetching users");
+    }
+  };
+  fetchUser();
 
   const handleInput = async (event) => {
     event.preventDefault();
@@ -72,6 +88,29 @@ export default function AddRecipe({
       event.target.cookTime.value = "";
       event.target.imageUrl.value = "";
     }
+
+    const newRecipeByUser = {
+      title: event.target.title.value,
+      description: event.target.description.value,
+      ingredients: event.target.instructions.value,
+      instructions: event.target.title.value,
+      servings: event.target.servings.value,
+      prepTime: event.target.prepTime.value,
+      cookTime: event.target.cookTime.value,
+      imageUrl: event.target.imageUrl.value,
+      RegisteredUser: myUser.id,
+    };
+    if (user) {
+      userAddRecipe(newRecipeByUser);
+      event.target.title.value = "";
+      event.target.description.value = "";
+      event.target.instructions.value = "";
+      event.target.title.value = "";
+      event.target.servings.value = "";
+      event.target.prepTime.value = "";
+      event.target.cookTime.value = "";
+      event.target.imageUrl.value = "";
+    }
   };
 
   const adminAddRecipe = async (recipe) => {
@@ -83,7 +122,17 @@ export default function AddRecipe({
       setAddedRecipe(recipe);
     } catch (error) {
       console.log("Error adding recipe");
-      console.log(error);
+    }
+  };
+  const userAddRecipe = async (recipe) => {
+    recipeService.setToken(user.token);
+    try {
+      await recipeService.addRecipe(recipe);
+      setError("");
+      setOpen(false);
+      setAddedRecipe(recipe);
+    } catch (error) {
+      console.log("Error adding recipe");
     }
   };
 
