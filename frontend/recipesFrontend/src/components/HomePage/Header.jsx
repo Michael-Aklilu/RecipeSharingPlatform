@@ -2,17 +2,19 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { Upload, User, Bell, Search, ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import Button from "./Button";
+import { useSideBarContext } from "../../context/SideBar";
 
 export default function Header() {
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
+  const {toggle} = useSideBarContext()
   return (
-    <div className="flex gap-10 lg:gap-20 justify-between pt-2 lg:mb-2 pb-2 bg-gray-700">
+    <div className="flex gap-10 lg:gap-20 justify-between pt-2  pb-2 bg-gray-700 ">
       <div
         className={`gap-4 items-center flex-shrink-0 ${
           showFullWidthSearch ? "hidden" : "flex"
         }`}
       >
-        <Button className="ml-2">
+        <Button onClick={toggle} className="ml-2 hidden lg:flex">
           <AiOutlineMenu size={21} />
         </Button>
         <a href="/"></a>

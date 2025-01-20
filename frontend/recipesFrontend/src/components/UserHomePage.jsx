@@ -33,7 +33,7 @@ const UserHomePage = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-[220px,1fr] gap-4 p-4 bg-stone-200">
+    <div className="grid grid-cols-1 sm:grid-cols-[220px,1fr] gap-4 p-4 bg-stone-200 ">
       <SideBar
         isOpen={isOpen}
         setIsOpen={setIsOpen}

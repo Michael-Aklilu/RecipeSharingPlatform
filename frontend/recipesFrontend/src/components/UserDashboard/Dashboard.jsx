@@ -1,4 +1,5 @@
 import TopBar from "./TopBar"
+import DashboardGrid from "./DashboardGrid"
 
 export default function Dashboard({
     user,
@@ -9,9 +10,9 @@ export default function Dashboard({
     removedRecipe,
 }) {
   return (
-    <div className="bg-white rounded-lg pb-4 shadow h-[175vh]">
+    <div className="bg-white rounded-lg pb-4 shadow h-full">
       <TopBar user={user} />
-     
+      <DashboardGrid/>
     </div>
   )
 }

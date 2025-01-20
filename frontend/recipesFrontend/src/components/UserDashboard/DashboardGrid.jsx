@@ -1,15 +1,15 @@
-
+import { recipes } from "../../fakeData/home";
+import RecipeGridItem from "../HomePage/RecipeGridItem";
 
 export default function DashboardGrid() {
   return (
-    <div className="px-4 grid gap-3 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 w-full">
-    <div className="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-3 xl:col-span-3 w-full">
-     
+    <div className="max-h-[80vh] overflow-y-auto">
+      <h1 className="font-bold text-3xl text-center mb-5">My Recipes</h1>
+      <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] grid-rows-[repeat(auto-fill,_minmax(300px,_1fr))] border bg-stone-200">
+        {recipes.map((recipe) => {
+          return <RecipeGridItem key={recipe.description} recipes={recipe} />;
+        })}
+      </div>
     </div>
-
-   
-
-    
-  </div>
-  )
+  );
 }

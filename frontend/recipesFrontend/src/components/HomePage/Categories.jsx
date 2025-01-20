@@ -31,7 +31,7 @@ export default function Categories({ categories, selectedCategory, onSelect }) {
   }, [categories, translate]);
 
   return (
-    <div className="overflow-x-hidden relative mt-3" ref={containerRef}>
+    <div className="overflow-x-hidden relative mt-8" ref={containerRef}>
       <div
         className="flex whitespace-nowrap gap-3 transition-transform w-[max-content]"
         style={{ transform: `translateX(-${translate}px)` }}
