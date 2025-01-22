@@ -1,18 +1,18 @@
-import { recipes } from "../../fakeData/home";
-import RecipeGridItem from "../HomePage/RecipeGridItem";
+import RecipeGridItem from "../SearchPage/RecipeGridItem";
 import recipeService from "../../services/recipes";
 import userService from "../../services/users";
 import { useState, useEffect } from "react";
 
 export default function DashboardGrid() {
   const [myRecipes, setMyRecipes] = useState([]);
+
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   recipeService.setToken(user.token);
   userService.setToken(user.token);
 
   useEffect(() => {
     fetchRecipes();
-  }, [myRecipes]);
+  }, []);
 
   const fetchRecipes = async () => {
     try {

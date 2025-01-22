@@ -1,7 +1,7 @@
 export default function RecipeGridItem({ recipes }) {
   
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <div className="flex flex-col gap-4 p-4 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow hover:scale-105 duration-300">
       <img
         src={recipes.imageUrl}
         className="w-full h-48 object-cover rounded-xl"

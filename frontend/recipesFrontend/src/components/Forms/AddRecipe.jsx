@@ -1,7 +1,6 @@
 import { HiOutlineBookOpen } from "react-icons/hi";
-import { useState, useEffect } from "react";
+import { useState, useRef } from "react";
 import Notification from "../Notifications/Notification";
-
 
 export default function AddRecipe({
   open,
@@ -11,24 +10,31 @@ export default function AddRecipe({
   setAddedRecipe,
 }) {
   const [error, setError] = useState("");
-  const [myUser, setMyUser] = useState("");
+  const [myUser, setMyUser] = useState(null);
   const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
+  const fetchUserCalled = useRef(false);
   if (!open) return null;
- 
-
 
   const fetchUser = async () => {
     try {
       const users = await userService.getAllUsers();
       const addingUser = users.find((u) => u.name === user.name);
-      
+
       setMyUser(addingUser);
     } catch (error) {
       console.log("Error fetching users");
     }
   };
-  fetchUser();
+
+  const handleFetchUser = () => {
+    if (!fetchUserCalled.current && user) {
+      fetchUser(); 
+      fetchUserCalled.current = true; 
+    }
+  };
+
+  handleFetchUser();
 
   const handleInput = async (event) => {
     event.preventDefault();

@@ -10,7 +10,7 @@ import AddAdmin from "./Forms/AddAdmin";
 import userService from "../services/users";
 import recipeService from "../services/recipes";
 import adminService from "../services/admin";
-import Dashboard from "./UserDashboard/Dashboard";
+import Dashboard from "./SearchDashboard/Dashboard";
 
 const UserHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
