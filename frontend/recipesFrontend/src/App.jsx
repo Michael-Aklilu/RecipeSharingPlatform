@@ -10,7 +10,7 @@ import SearchPage from "./components/SearchPage";
 import recipeService from "./services/recipes";
 import userService from "./services/users";
 import { useState, useEffect } from "react";
-import Search from "./components/UserSideBar/Search";
+
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -65,7 +65,8 @@ function App() {
         ></Route>
         <Route path="/UserProfile" element={<UserProfile />}></Route>
         <Route />
-        <Route path="/Home" element={<SearchPage/>}></Route>
+        <Route path="/Home" element={<SearchPage />}></Route>
+        <Route path="/" element={<LandingPage />}></Route>
       </Routes>
     </Router>
   );
