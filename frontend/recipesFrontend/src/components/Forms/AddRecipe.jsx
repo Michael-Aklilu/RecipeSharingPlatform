@@ -76,8 +76,8 @@ export default function AddRecipe({
     const newRecipeByAdmin = {
       title: event.target.title.value,
       description: event.target.description.value,
-      ingredients: event.target.instructions.value,
-      instructions: event.target.title.value,
+      ingredients: event.target.ingredients.value,
+      instructions: event.target.instructions.value,
       servings: event.target.servings.value,
       prepTime: event.target.prepTime.value,
       cookTime: event.target.cookTime.value,
@@ -98,8 +98,8 @@ export default function AddRecipe({
     const newRecipeByUser = {
       title: event.target.title.value,
       description: event.target.description.value,
-      ingredients: event.target.instructions.value,
-      instructions: event.target.title.value,
+      ingredients: event.target.ingredients.value,
+      instructions: event.target.instructions.value,
       servings: event.target.servings.value,
       prepTime: event.target.prepTime.value,
       cookTime: event.target.cookTime.value,

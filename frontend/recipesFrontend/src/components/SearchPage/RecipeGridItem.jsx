@@ -1,17 +1,16 @@
 import { useState } from "react";
 import recipeService from "../../services/recipes";
-export default function RecipeGridItem({ recipes }) {
+export default function RecipeGridItem({ recipes, setShowRecipes, setDialogRecipe }) {
   const [searchedRecipe, setSearchedRecipe] = useState([]);
   const handleClick = async (event) => {
     const value = event.target.dataset.title;
     setSearchedRecipe(value);
     const recipes = await recipeService.showAllRecipes();
-
+    setShowRecipes(true)
     const recipeToShow = recipes.filter((recipe) => {
       return recipe.title === value;
     });
-
-    console.log(recipeToShow);
+    await setDialogRecipe(recipeToShow)
   };
   return (
     <div
