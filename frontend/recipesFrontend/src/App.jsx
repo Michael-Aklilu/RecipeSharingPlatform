@@ -16,6 +16,7 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [loggedInAdmin, setLoggedInAdmin] = useState(null);
   const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [showRecipes, setShowRecipe] = useState(false);
 
   useEffect(() => {
     const adminJSON = window.localStorage.getItem("LoggedInAdmin");
@@ -63,9 +64,9 @@ function App() {
           path="/AdminSignUp"
           element={<AdminSignUp setLoggedInAdmin={setLoggedInAdmin} />}
         ></Route>
-        <Route path="/UserProfile" element={<UserProfile />}></Route>
+        <Route path="/UserProfile" element={<UserProfile showRecipes={showRecipes} setShowRecipe={setShowRecipe}/>}></Route>
         <Route />
-        <Route path="/Home" element={<SearchPage />}></Route>
+        <Route path="/Home" element={<SearchPage showRecipes={showRecipes} setShowRecipe={setShowRecipe}/>}></Route>
         <Route path="/" element={<LandingPage />}></Route>
       </Routes>
     </Router>
