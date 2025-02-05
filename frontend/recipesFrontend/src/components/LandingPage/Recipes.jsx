@@ -4,7 +4,7 @@ export default function Recipes() {
   return (
     <div className="w-full py-16 px-4 bg-gray-700">
       <div className="max-w-full mx-auto grid md:grid-cols-2">
-        <img className="w-[500px] mx-auto my-4" src={chefImg} alt="/" />
+        <img className="lg:w-[500px] w-[300px] mx-auto my-4" src={chefImg} alt="/" />
         <div className="flex flex-col justify-center">
           <h1 className="md:text-4xl sm:text-3xl text-2xl font-bold py-2 text-white ">
             New to cooking? Start your culinary journey with Tasty Bites. Easily

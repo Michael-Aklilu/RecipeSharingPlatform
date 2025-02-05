@@ -10,7 +10,7 @@ import AddAdmin from "./Forms/AddAdmin";
 import userService from "../services/users";
 import recipeService from "../services/recipes";
 import adminService from "../services/admin";
-import Dashboard from "./SearchDashboard/Dashboard";
+import Dashboard from "./UserDashboard/Dashboard";
 
 const UserHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +26,7 @@ const UserHomePage = () => {
   const [addedRecipe, setAddedRecipe] = useState("");
   const [removedRecipe, setRemovedRecipe] = useState("");
   const [user, setUser] = useState(null);
+  
 
   useEffect(() => {
     const userJSON = JSON.parse(window.localStorage.getItem("LoggedInUser"));

@@ -4,10 +4,7 @@ import RecipeGridItem from "./SearchPage/RecipeGridItem";
 import SideBar from "./SearchPage/SideBar";
 import { SideBarProvider } from "../context/SideBar";
 import recipeService from "../services/recipes";
-import {
-  ClockIcon,
-  UserGroupIcon,
-} from "@heroicons/react/24/outline";
+import { ClockIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 
 export default function SearchPage() {
   const [recipes, setRecipes] = useState([]);
@@ -69,13 +66,13 @@ export default function SearchPage() {
                           Ingredients
                         </h3>
                         <ul className="list-disc list-inside space-y-1 text-sm">
-                          {dialogRecipe[0].ingredients.map(
-                            (ingredient, index) => (
+                          {dialogRecipe[0].ingredients[0]
+                            .split("\n")
+                            .map((ingredient, index) => (
                               <li key={index} className="text-gray-700">
                                 {ingredient}
                               </li>
-                            )
-                          )}
+                            ))}
                         </ul>
                       </div>
                     )}
@@ -86,9 +83,15 @@ export default function SearchPage() {
                   <h3 className="font-semibold text-lg text-orange-800 mb-4">
                     Instructions
                   </h3>
-                  <div className="prose text-gray-700 space-y-4">
-                    {dialogRecipe[0].instructions}
-                  </div>
+                  <ul className="prose text-gray-700 space-y-4">
+                    {dialogRecipe[0].instructions[0]
+                      .split("\n")
+                      .map((i, index) => (
+                        <li key={index}>
+                          {index + 1}.{i}
+                        </li>
+                      ))}
+                  </ul>
                 </div>
 
                 <div className="flex justify-center">
