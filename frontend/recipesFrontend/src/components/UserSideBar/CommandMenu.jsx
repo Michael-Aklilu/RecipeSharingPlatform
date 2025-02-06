@@ -51,34 +51,18 @@ export default function CommandMenu({
             <span className="text-stone-950">"{value}"</span>
           </Command.Empty>
 
-          <Command.Group
-            heading="Admin"
-            className="text-lg mb-3 text-stone-700 "
-          >
-            <Command.Item className="flex cursor-pointer transition-colors p-2 text-lg text-stone-950 hover:bg-white rounded items-centergap-2">
-              <FaUserPlus size={21} />
-              <span
-                className="ml-1"
-                onClick={() => {
-                  setOpenAddAdmin(true);
-                  setOpen(false);
-                }}
-              >
-                Add Admin
-              </span>
-            </Command.Item>
-          </Command.Group>
+         
           <Command.Group
             heading="Users"
             className="text-lg mb-3 text-stone-700 "
           >
             <Command.Item className="flex cursor-pointer transition-colors p-2 text-lg text-stone-950 hover:bg-white rounded items-centergap-2">
               <FaUserPlus size={21} />
-              <span className="ml-1">Add to my recipes</span>
+              <span className="ml-1">Add to saved recipes</span>
             </Command.Item>
             <Command.Item className="flex cursor-pointer transition-colors p-2 text-lg text-stone-950 hover:bg-white rounded items-centergap-2">
               <FaUserMinus size={21} />
-              <span className="ml-1">Remove from my recipes</span>
+              <span className="ml-1">Remove from saved recipes</span>
             </Command.Item>
           </Command.Group>
           <Command.Group

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
 import SideBar from "./UserSideBar/SideBar";
-import AddUser from "./Forms/AddUser";
-import RemoveUser from "./Forms/RemoveUser";
+
 import AddRecipe from "./Forms/AddRecipe";
 import RemoveRecipe from "./Forms/RemoveRecipe";
 import RemoveComment from "./Forms/RemoveComment";
 import SignOut from "./Forms/SignOut";
-import AddAdmin from "./Forms/AddAdmin";
+
 import userService from "../services/users";
 import recipeService from "../services/recipes";
 import adminService from "../services/admin";
 import Dashboard from "./UserDashboard/Dashboard";
+
 
 const UserHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,6 +26,8 @@ const UserHomePage = () => {
   const [addedRecipe, setAddedRecipe] = useState("");
   const [removedRecipe, setRemovedRecipe] = useState("");
   const [user, setUser] = useState(null);
+  const [showRecipes, setShowRecipes] = useState(false)
+  const [dialogRecipe, setDialogRecipe] = useState(null)
   
 
   useEffect(() => {
@@ -72,6 +74,10 @@ const UserHomePage = () => {
         adminService={adminService}
         addedRecipe={addedRecipe}
         removedRecipe={removedRecipe}
+        setShowRecipes={setShowRecipes}
+        setDialogRecipe={setDialogRecipe}
+        dialogRecipe={dialogRecipe}
+        showRecipes={showRecipes}
       />
     </div>
   );

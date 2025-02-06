@@ -4,7 +4,7 @@ import {
   FaUserPlus,
   FaPizzaSlice,
   FaBan,
-  FaTrash,
+  FaPlus,
 } from "react-icons/fa";
 
 export default function RouteSelect({
@@ -14,7 +14,6 @@ export default function RouteSelect({
     setOpenRemoveUser,
     setOpenAddRecipe,
     setOpenRemoveRecipe,
-    setOpenRemoveComment,
     setOpenSignOut,
   }){
     return (
@@ -22,12 +21,12 @@ export default function RouteSelect({
         <Route icon={FiHome} title="Dashboard" />
         <Route
           icon={FaUserPlus}
-          title="Add to my recipes"
+          title="Add to saved recipes"
           
         />
         <Route
           icon={FaUserMinus}
-          title="Remove from recipes"
+          title="Remove saved recipe"
           
         />
         <Route
@@ -43,10 +42,8 @@ export default function RouteSelect({
           onClick={() => setOpenRemoveRecipe(true)}
         />
         <Route
-          icon={FaTrash}
-          title="Remove Comment"
-          setOpenRemoveComment={setOpenRemoveComment}
-          onClick={() => setOpenRemoveComment(true)}
+          icon={FaPlus}
+          title="Add Comment"
         />
         <Route
           icon={FiLogOut}

@@ -45,7 +45,7 @@ const LargeSideBarItem = ({ url, Icon, title }) => {
   return (
     <a
       href={url}
-      className="w-full flex items-center  rounded-lg gap-4 p-4 mt-5 text-xl text-white hover:bg-stone-200 hover:text-black"
+      className="w-full flex items-center  rounded-lg gap-4 p-4 mt-5 text-lg text-white hover:bg-stone-200 hover:text-black"
     >
       <Icon className="w-6 h-6" />
       <div className="whitespace-nowrap overflow-hidden text-ellipsis">
