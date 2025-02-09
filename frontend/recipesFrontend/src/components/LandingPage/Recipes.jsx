@@ -24,7 +24,7 @@ export default function Recipes() {
             
             onClick={() => navigate("/Login")}
           >
-            Get Started
+            Login
           </button>
         </div>
       </div>

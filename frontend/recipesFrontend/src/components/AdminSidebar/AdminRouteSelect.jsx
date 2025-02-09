@@ -19,7 +19,6 @@ const AdminRouteSelect = ({
 }) => {
   return (
     <div className="space-y-8 text-white">
-      <Route icon={FiHome} title="Dashboard" />
       <Route
         icon={FaUserPlus}
         title="Add User"

@@ -13,16 +13,11 @@ const Navbar = () => {
       <h1 className="w-1/3 text-3xl font-bold text-stone-200 ">TASTY BITES</h1>
       <ul className="hidden md:flex text-xl ">
         <li className="p-4">
-          <button className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2">
-            Home
-          </button>
-        </li>
-        <li className="p-4">
           <button
             onClick={() => navigate("/Home")}
             className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
           >
-            Recipes
+            Home
           </button>
         </li>
         <li className="p-4">
@@ -41,14 +36,6 @@ const Navbar = () => {
             Register
           </button>
         </li>
-        <li className="p-4">
-          <button
-            onClick={() => navigate("/adminLogin")}
-            className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
-          >
-            Null
-          </button>
-        </li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {!nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -65,16 +52,11 @@ const Navbar = () => {
         </h1>
         <ul className=" bg-gray-700 p-4">
           <li className="p-4 border-b border-stone-300">
-            <button className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2">
-              Home
-            </button>
-          </li>
-          <li className="p-4 border-b border-stone-300">
             <button
               onClick={() => navigate("/")}
               className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
             >
-              Recipes
+              Home
             </button>
           </li>
           <li className="p-4 border-b border-stone-300">
@@ -91,14 +73,6 @@ const Navbar = () => {
               className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
             >
               Register
-            </button>
-          </li>
-          <li className="p-4 ">
-            <button
-              onClick={() => navigate("/adminSignUp")}
-              className="hover:bg-stone-300 bg-transparent shadow-none rounded-lg p-2"
-            >
-              Null
             </button>
           </li>
         </ul>
