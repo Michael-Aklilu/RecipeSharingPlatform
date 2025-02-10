@@ -76,8 +76,7 @@ userRouter.put("/:id", async (req, res) => {
     const user = await registeredUser.findByIdAndUpdate(id, updatedUser, {
       new: true,
     });
-    //.populate('Comments')
-    //.populate('SavedRecipes')
+    
     const newUser = await registeredUser
       .findById(id)
       .populate("Comments")

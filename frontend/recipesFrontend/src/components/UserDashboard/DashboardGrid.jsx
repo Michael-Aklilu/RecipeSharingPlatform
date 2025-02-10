@@ -38,9 +38,17 @@ export default function DashboardGrid({
     }
   };
 
-  const addToSavedRecipes = () =>{
-
-  }
+  const addToSavedRecipes = async (event) => {
+    event.preventDefault();
+    const users = await userService.getAllUsers();
+    const myUser = users.find((u) => u.username === user.username);
+    const recipes = await recipeService.showAllRecipes()
+    const recipeToAdd = recipes.find((r) => r.title === event.target.name)
+    const newUser = {...myUser, savedRecipes: myUser.savedRecipes.concat(recipeToAdd)}
+    //await userService.editUser(myUser.id,newUser)   
+    console.log(newUser);
+    setShowRecipes(false)
+  };
 
   return (
     <SideBarProvider>
@@ -112,15 +120,16 @@ export default function DashboardGrid({
                 </div>
                 <div className="flex justify-center gap-4">
                   {user && (
-                    <>
+                    <form
+                      onSubmit={addToSavedRecipes}
+                      className="flex justify-center gap-4"
+                      name={dialogRecipe[0].title}
+                    >
                       <button
                         className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-full 
                    hover:from-green-700 hover:to-green-600 transition-all transform hover:scale-105
                    shadow-lg flex items-center"
-                        onClick={() => {
-                          setOpenAddToSavedRecipes(true);
-                          setShowRecipes(false);
-                        }}
+                       
                       >
                         Add to saved Recipes
                       </button>
@@ -139,7 +148,7 @@ export default function DashboardGrid({
                       >
                         Close
                       </button>
-                    </>
+                    </form>
                   )}
                 </div>
 
