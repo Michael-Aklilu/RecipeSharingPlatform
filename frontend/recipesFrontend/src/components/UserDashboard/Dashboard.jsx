@@ -11,12 +11,13 @@ export default function Dashboard({
     setShowRecipes,
     setDialogRecipe,
     dialogRecipe,
-    showRecipes
+    showRecipes,
+    setOpenAddToSavedRecipes
 }) {
   return (
     <div className="bg-white rounded-lg pb-4 shadow h-full">
       <TopBar user={user} />
-      <DashboardGrid setDialogRecipe={setDialogRecipe} setShowRecipes={setShowRecipes} dialogRecipe={dialogRecipe} showRecipes={showRecipes}/>
+      <DashboardGrid setDialogRecipe={setDialogRecipe} setShowRecipes={setShowRecipes} dialogRecipe={dialogRecipe} showRecipes={showRecipes} setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}/>
     </div>
   )
 }

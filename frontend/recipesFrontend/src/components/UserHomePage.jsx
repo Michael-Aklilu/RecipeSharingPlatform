@@ -3,6 +3,8 @@ import SideBar from "./UserSideBar/SideBar";
 
 import AddRecipe from "./Forms/AddRecipe";
 import RemoveRecipe from "./Forms/RemoveRecipe";
+import AddToSavedRecipes from "./Forms/AddToSavedRecipes";
+import RemoveSavedRecipe from "./Forms/RemoveSavedRecipe";
 import RemoveComment from "./Forms/RemoveComment";
 import SignOut from "./Forms/SignOut";
 
@@ -10,7 +12,6 @@ import userService from "../services/users";
 import recipeService from "../services/recipes";
 import adminService from "../services/admin";
 import Dashboard from "./UserDashboard/Dashboard";
-
 
 const UserHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,9 +27,10 @@ const UserHomePage = () => {
   const [addedRecipe, setAddedRecipe] = useState("");
   const [removedRecipe, setRemovedRecipe] = useState("");
   const [user, setUser] = useState(null);
-  const [showRecipes, setShowRecipes] = useState(false)
-  const [dialogRecipe, setDialogRecipe] = useState(null)
-  
+  const [showRecipes, setShowRecipes] = useState(false);
+  const [dialogRecipe, setDialogRecipe] = useState(null);
+  const [openAddToSavedRecipes, setOpenAddToSavedRecipes] = useState(false);
+  const [openRemoveSavedRecipe, setOpenRemoveSavedRecipe] = useState(false);
 
   useEffect(() => {
     const userJSON = JSON.parse(window.localStorage.getItem("LoggedInUser"));
@@ -48,6 +50,20 @@ const UserHomePage = () => {
         setOpenSignOut={setOpenSignOut}
         user={user}
         setOpenAddAdmin={setOpenAddAdmin}
+        setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
+        setOpenRemoveSavedRecipe={setOpenRemoveSavedRecipe}
+      />
+
+      <AddToSavedRecipes
+        open={openAddToSavedRecipes}
+        setOpen={setOpenAddToSavedRecipes}
+        userService={userService}
+      />
+
+      <RemoveSavedRecipe
+        open={openRemoveSavedRecipe}
+        setOpen={setOpenRemoveSavedRecipe}
+        userService={userService}
       />
 
       <AddRecipe
@@ -78,6 +94,7 @@ const UserHomePage = () => {
         setDialogRecipe={setDialogRecipe}
         dialogRecipe={dialogRecipe}
         showRecipes={showRecipes}
+        setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
       />
     </div>
   );

@@ -12,6 +12,7 @@ export default function SearchPage() {
   const [showRecipes, setShowRecipes] = useState(false);
   const [dialogRecipe, setDialogRecipe] = useState(null);
 
+
   useEffect(() => {
     fetchRecipes();
   }, [filteredRecipes]);

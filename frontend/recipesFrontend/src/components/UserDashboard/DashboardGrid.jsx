@@ -1,13 +1,19 @@
 import RecipeGridItem from "../SearchPage/RecipeGridItem";
 import recipeService from "../../services/recipes";
 import userService from "../../services/users";
+
 import { useState, useEffect } from "react";
 import { SideBarProvider } from "../../context/SideBar";
 import { ClockIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 
-export default function DashboardGrid({ setDialogRecipe, setShowRecipes,dialogRecipe, showRecipes }) {
+export default function DashboardGrid({
+  setDialogRecipe,
+  setShowRecipes,
+  dialogRecipe,
+  showRecipes,
+  setOpenAddToSavedRecipes,
+}) {
   const [myRecipes, setMyRecipes] = useState([]);
-
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   recipeService.setToken(user.token);
   userService.setToken(user.token);
@@ -32,9 +38,13 @@ export default function DashboardGrid({ setDialogRecipe, setShowRecipes,dialogRe
     }
   };
 
+  const addToSavedRecipes = () =>{
+
+  }
+
   return (
     <SideBarProvider>
-        {showRecipes && (
+      {showRecipes && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 p-4 z-50">
           {dialogRecipe && (
             <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 overflow-hidden">
@@ -100,38 +110,60 @@ export default function DashboardGrid({ setDialogRecipe, setShowRecipes,dialogRe
                       ))}
                   </ul>
                 </div>
-
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => setShowRecipes(false)}
-                    className="px-8 py-3 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-full 
-                            hover:from-blue-700 hover:to-blue-600 transition-all transform hover:scale-105
+                <div className="flex justify-center gap-4">
+                  {user && (
+                    <>
+                      <button
+                        className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-full 
+                   hover:from-green-700 hover:to-green-600 transition-all transform hover:scale-105
+                   shadow-lg flex items-center"
+                        onClick={() => {
+                          setOpenAddToSavedRecipes(true);
+                          setShowRecipes(false);
+                        }}
+                      >
+                        Add to saved Recipes
+                      </button>
+                      <button
+                        className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-full 
+                   hover:from-purple-700 hover:to-purple-600 transition-all transform hover:scale-105
+                   shadow-lg flex items-center"
+                      >
+                        Add Comment
+                      </button>
+                      <button
+                        onClick={() => setShowRecipes(false)}
+                        className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-full 
+                            hover:from-red-700 hover:to-red-600 transition-all transform hover:scale-105
                             shadow-lg flex items-center"
-                  >
-                    Close
-                  </button>
+                      >
+                        Close
+                      </button>
+                    </>
+                  )}
                 </div>
+
+                <div className="flex justify-center"></div>
               </div>
             </div>
           )}
         </div>
       )}
-       <div className="max-h-[80vh] overflow-y-auto">
-      <h1 className="font-bold text-3xl text-center mb-5">My Recipes</h1>
-      <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] grid-rows-[repeat(auto-fill,_minmax(300px,_1fr))] border bg-stone-200">
-        {myRecipes.map((recipe) => {
-          return (
-            <RecipeGridItem
-              key={recipe.description}
-              recipes={recipe}
-              setShowRecipes={setShowRecipes}
-              setDialogRecipe={setDialogRecipe}
-            />
-          );
-        })}
+      <div className="max-h-[80vh] overflow-y-auto">
+        <h1 className="font-bold text-3xl text-center mb-5">My Recipes</h1>
+        <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] grid-rows-[repeat(auto-fill,_minmax(300px,_1fr))] border bg-stone-200">
+          {myRecipes.map((recipe) => {
+            return (
+              <RecipeGridItem
+                key={recipe.description}
+                recipes={recipe}
+                setShowRecipes={setShowRecipes}
+                setDialogRecipe={setDialogRecipe}
+              />
+            );
+          })}
+        </div>
       </div>
-    </div>
     </SideBarProvider>
-   
   );
 }

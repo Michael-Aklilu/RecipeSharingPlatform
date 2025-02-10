@@ -14,6 +14,8 @@ export default function SideBar({
   setOpenSignOut,
   user,
   setOpenAddAdmin,
+  setOpenAddToSavedRecipes,
+  setOpenRemoveSavedRecipe
 }) {
   return (
     <div className="bg-gray-700 rounded-lg ">
@@ -36,6 +38,8 @@ export default function SideBar({
           setOpenRemoveRecipe={setOpenRemoveRecipe}
           setOpenRemoveComment={setOpenRemoveComment}
           setOpenSignOut={setOpenSignOut}
+          setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
+          setOpenRemoveSavedRecipe={setOpenRemoveSavedRecipe}
         />
       </div>
       <SideBarFooter />
