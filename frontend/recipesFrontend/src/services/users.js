@@ -63,9 +63,12 @@ const removeUser = async (id) => {
 };
 
 const editUser = async (id, newUser) => {
+  const config = {
+    headers: { Authorization: token },
+  };
   const url = `http://localhost:3000/api/users/${id}`;
   try {
-    const response = await axios.put(url, newUser);
+    const response = await axios.put(url, newUser,config);
     return response.data;
   } catch (error) {
     console.log(error);

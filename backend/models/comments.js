@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 
 const commentSchema = new mongoose.Schema({
-  body: { type: String, required: true },
+  comment: { type: String, required: true },
   date: { type: Date, default: Date.now },
   RegisteredUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "RegisteredUser",
     required: true,
   },
-  Recipes: {
+  Recipe: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Recipes",
+    required: true
   },
 });
 

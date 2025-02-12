@@ -10,7 +10,8 @@ const adminSignUpRouter = require("./controllers/adminSignup");
 const userRouter = require("./controllers/users");
 const recipeRouter = require("./controllers/recipes");
 const adminRouter = require("./controllers/admin");
-const initialRecipes = require("./initialRecipes")
+const commentRouter = require("./controllers/comments");
+const initialRecipes = require("./initialRecipes");
 
 const mongoose = require("mongoose");
 
@@ -28,7 +29,7 @@ app.use("/api/adminSignUp", adminSignUpRouter);
 app.use("/api/users", userRouter);
 app.use("/api/recipes", recipeRouter);
 app.use("/api/admins", adminRouter);
+app.use("/api/comments", commentRouter);
 app.use(middleware.unknownEndpoint);
-
 
 module.exports = app;

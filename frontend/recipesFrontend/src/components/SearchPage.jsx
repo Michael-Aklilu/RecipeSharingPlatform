@@ -77,6 +77,12 @@ export default function SearchPage() {
                         </ul>
                       </div>
                     )}
+                     {dialogRecipe[0].RegisteredUser && 
+                      <div className="bg-purple-200 text-purple-900 p-4 rounded-lg">
+                        <h1 className="font-semibold text-lg  mb-2">Recipe Owner</h1>
+                        <span>{dialogRecipe[0].RegisteredUser.username}</span>
+                      </div>  
+                    }
                   </div>
                 </div>
 

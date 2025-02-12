@@ -11,6 +11,7 @@ export default function RecipeGridItem({ recipes, setShowRecipes, setDialogRecip
       return recipe.title === value;
     });
     await setDialogRecipe(recipeToShow)
+    
   };
   return (
     <div

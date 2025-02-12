@@ -18,6 +18,7 @@ export default function DashboardGrid({
   recipeService.setToken(user.token);
   userService.setToken(user.token);
 
+
   useEffect(() => {
     fetchRecipes();
   }, []);
@@ -37,7 +38,7 @@ export default function DashboardGrid({
       console.log("Error fetching recipes");
     }
   };
-
+  /*
   const addToSavedRecipes = async (event) => {
     event.preventDefault();
     const users = await userService.getAllUsers();
@@ -45,10 +46,11 @@ export default function DashboardGrid({
     const recipes = await recipeService.showAllRecipes()
     const recipeToAdd = recipes.find((r) => r.title === event.target.name)
     const newUser = {...myUser, savedRecipes: myUser.savedRecipes.concat(recipeToAdd)}
-    //await userService.editUser(myUser.id,newUser)   
-    console.log(newUser);
+    await userService.editUser(myUser.id,newUser)   
+    console.log(user);
     setShowRecipes(false)
   };
+  */
 
   return (
     <SideBarProvider>
@@ -100,7 +102,15 @@ export default function DashboardGrid({
                             ))}
                         </ul>
                       </div>
+                      
                     )}
+                    {dialogRecipe[0].RegisteredUser && 
+                      <div className="bg-purple-200 text-purple-900 p-4 rounded-lg">
+                        <h1 className="font-semibold text-lg  mb-2">Recipe Owner</h1>
+                        <span>{dialogRecipe[0].RegisteredUser.username}</span>
+                      </div>  
+                    }
+                  
                   </div>
                 </div>
 
@@ -121,7 +131,6 @@ export default function DashboardGrid({
                 <div className="flex justify-center gap-4">
                   {user && (
                     <form
-                      onSubmit={addToSavedRecipes}
                       className="flex justify-center gap-4"
                       name={dialogRecipe[0].title}
                     >
