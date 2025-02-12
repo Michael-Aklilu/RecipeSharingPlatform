@@ -26,10 +26,34 @@ const registeredUserSchema = new mongoose.Schema({
 
 registeredUserSchema.set("toJSON", {
   transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
+    if (
+      returnedObject._id &&
+      !returnedObject.$__ &&
+      !returnedObject.$isDocument
+    ) {
+      returnedObject.id = returnedObject._id.toString();
+      delete returnedObject._id;
+    }
     delete returnedObject.__v;
     delete returnedObject.passwordHash;
+
+    if (
+      returnedObject.addedRecipes &&
+      returnedObject.addedRecipes.length === 0
+    ) {
+      delete returnedObject.addedRecipes;
+    }
+    if (returnedObject.comments && returnedObject.comments.length === 0) {
+      delete returnedObject.comments;
+    }
+    if (
+      returnedObject.savedRecipes &&
+      returnedObject.savedRecipes.length === 0
+    ) {
+      delete returnedObject.savedRecipes;
+    }
+
+    return returnedObject;
   },
 });
 

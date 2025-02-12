@@ -6,7 +6,15 @@ const { userExtractor } = require("../utils/middleware");
 
 recipeRouter.get("/", async (req, res) => {
   try {
-    const recipes = await Recipes.find({}).populate("RegisteredUser");
+    const recipes = await Recipes.find({})
+      .populate("RegisteredUser")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "RegisteredUser",
+          select: "username",
+        },
+      });
 
     if (!recipes) {
       return res.status(404).json({ error: "Recipe not found" });

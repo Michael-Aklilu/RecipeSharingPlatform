@@ -34,8 +34,8 @@ commentRouter.post("/", async (req, res) => {
 commentRouter.get("/", async (req, res) => {
   try {
     const comments = await Comments.find({})
-      .populate("RegisteredUser")
-      .populate("Recipe");
+      .populate("RegisteredUser", "username")
+      .populate("Recipe","title");
     if (!comments) {
       res.status(404).json({ error: "Comments not found" });
     }

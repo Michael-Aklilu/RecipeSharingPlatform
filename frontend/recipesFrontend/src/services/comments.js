@@ -42,3 +42,11 @@ const editComment = async (id, newComment) => {
   const response = await axios.put(commentUrl, newComment, config);
   return response.data;
 };
+
+export default {
+  setToken,
+  fetchAllComments,
+  addComment,
+  removeComment,
+  editComment
+}

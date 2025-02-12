@@ -39,12 +39,13 @@ export default function SearchPage() {
                   </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 gap-6 mb-8 ">
                   <img
                     src={dialogRecipe[0].imageUrl}
                     alt={dialogRecipe[0].title}
-                    className="w-full  object-cover rounded-lg shadow-md"
+                    className=" w-full h-[35vh] object-cover rounded-lg shadow-md"
                   />
+                  
                   <div className="space-y-4">
                     <div className="bg-blue-50 p-4 rounded-lg">
                       <h3 className="font-semibold text-lg text-blue-800 mb-2">

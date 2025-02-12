@@ -1,6 +1,7 @@
 import RecipeGridItem from "../SearchPage/RecipeGridItem";
 import recipeService from "../../services/recipes";
 import userService from "../../services/users";
+import commentService from "../../services/comments";
 
 import { useState, useEffect } from "react";
 import { SideBarProvider } from "../../context/SideBar";
@@ -12,12 +13,15 @@ export default function DashboardGrid({
   dialogRecipe,
   showRecipes,
   setOpenAddToSavedRecipes,
+  setOpenAddComment,
+  setCommentedOnRecipe,
 }) {
   const [myRecipes, setMyRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   recipeService.setToken(user.token);
   userService.setToken(user.token);
-
+  commentService.setToken(user.token);
 
   useEffect(() => {
     fetchRecipes();
@@ -33,11 +37,13 @@ export default function DashboardGrid({
       const myDbRecipes = dbRecipes.filter((recipe) => {
         return recipe.RegisteredUser.id === myUser.id;
       });
+
       setMyRecipes(myDbRecipes);
     } catch (error) {
       console.log("Error fetching recipes");
     }
   };
+
   /*
   const addToSavedRecipes = async (event) => {
     event.preventDefault();
@@ -52,6 +58,20 @@ export default function DashboardGrid({
   };
   */
 
+  const handleRecipeClick = (recipe) => {
+    setDialogRecipe([recipe]);
+    setSelectedRecipe(recipe);
+    setShowRecipes(true);
+  };
+
+  const addComment = () => {
+    setDialogRecipe(false);
+    setShowRecipes(false);
+    setCommentedOnRecipe(selectedRecipe);
+    setOpenAddComment(true);
+    fetchRecipes();
+  };
+
   return (
     <SideBarProvider>
       {showRecipes && (
@@ -65,11 +85,11 @@ export default function DashboardGrid({
                   </h2>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 gap-6 mb-8">
                   <img
                     src={dialogRecipe[0].imageUrl}
                     alt={dialogRecipe[0].title}
-                    className="w-full  object-cover rounded-lg shadow-md"
+                    className="w-full h-[35vh] object-cover rounded-lg shadow-md"
                   />
                   <div className="space-y-4">
                     <div className="bg-blue-50 p-4 rounded-lg">
@@ -102,15 +122,15 @@ export default function DashboardGrid({
                             ))}
                         </ul>
                       </div>
-                      
                     )}
-                    {dialogRecipe[0].RegisteredUser && 
+                    {dialogRecipe[0].RegisteredUser && (
                       <div className="bg-purple-200 text-purple-900 p-4 rounded-lg">
-                        <h1 className="font-semibold text-lg  mb-2">Recipe Owner</h1>
+                        <h1 className="font-semibold text-lg  mb-2">
+                          Recipe Owner
+                        </h1>
                         <span>{dialogRecipe[0].RegisteredUser.username}</span>
-                      </div>  
-                    }
-                  
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -128,37 +148,55 @@ export default function DashboardGrid({
                       ))}
                   </ul>
                 </div>
+                {dialogRecipe[0].comments?.length > 0 && (
+                  <div className="bg-blue-50 p-6 rounded-lg mb-6">
+                    <h3 className="font-semibold text-lg text-blue-800 mb-4">
+                      Comments
+                    </h3>
+                    <div className="space-y-4">
+                      {dialogRecipe[0].comments.map((comment, index) => (
+                        <div
+                          key={index}
+                          className="bg-white p-4 rounded-lg shadow-sm border border-blue-100"
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="font-semibold text-blue-600">
+                              {comment.RegisteredUser?.username}:
+                            </span>
+                            <span className="text-sm text-gray-500">
+                              {new Date(comment.date).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <p className="text-gray-700">{comment.comment}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div className="flex justify-center gap-4">
-                  {user && (
-                    <form
-                      className="flex justify-center gap-4"
-                      name={dialogRecipe[0].title}
-                    >
-                      <button
-                        className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-full 
+                  <button
+                    className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-full 
                    hover:from-green-700 hover:to-green-600 transition-all transform hover:scale-105
                    shadow-lg flex items-center"
-                       
-                      >
-                        Add to saved Recipes
-                      </button>
-                      <button
-                        className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-full 
+                  >
+                    Add to saved Recipes
+                  </button>
+                  <button
+                    className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white rounded-full 
                    hover:from-purple-700 hover:to-purple-600 transition-all transform hover:scale-105
                    shadow-lg flex items-center"
-                      >
-                        Add Comment
-                      </button>
-                      <button
-                        onClick={() => setShowRecipes(false)}
-                        className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-full 
+                    onClick={addComment}
+                  >
+                    Add Comment
+                  </button>
+                  <button
+                    onClick={() => setShowRecipes(false)}
+                    className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white rounded-full 
                             hover:from-red-700 hover:to-red-600 transition-all transform hover:scale-105
                             shadow-lg flex items-center"
-                      >
-                        Close
-                      </button>
-                    </form>
-                  )}
+                  >
+                    Close
+                  </button>
                 </div>
 
                 <div className="flex justify-center"></div>
@@ -176,7 +214,9 @@ export default function DashboardGrid({
                 key={recipe.description}
                 recipes={recipe}
                 setShowRecipes={setShowRecipes}
-                setDialogRecipe={setDialogRecipe}
+                setDialogRecipe={(selected) => {
+                  handleRecipeClick(recipe);
+                }}
               />
             );
           })}

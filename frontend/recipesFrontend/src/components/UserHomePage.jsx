@@ -5,6 +5,7 @@ import AddRecipe from "./Forms/AddRecipe";
 import RemoveRecipe from "./Forms/RemoveRecipe";
 import AddToSavedRecipes from "./Forms/AddToSavedRecipes";
 import RemoveSavedRecipe from "./Forms/RemoveSavedRecipe";
+import AddComment from "./Forms/AddComment"
 import RemoveComment from "./Forms/RemoveComment";
 import SignOut from "./Forms/SignOut";
 
@@ -20,6 +21,7 @@ const UserHomePage = () => {
   const [openRemoveUser, setOpenRemoveUser] = useState(false);
   const [openAddRecipe, setOpenAddRecipe] = useState(false);
   const [openRemoveRecipe, setOpenRemoveRecipe] = useState(false);
+  const [openAddComment, setOpenAddComment] = useState(false)
   const [openRemoveComment, setOpenRemoveComment] = useState(false);
   const [openSignOut, setOpenSignOut] = useState(false);
   const [showAddedUser, setShowAddedUser] = useState("");
@@ -31,6 +33,7 @@ const UserHomePage = () => {
   const [dialogRecipe, setDialogRecipe] = useState(null);
   const [openAddToSavedRecipes, setOpenAddToSavedRecipes] = useState(false);
   const [openRemoveSavedRecipe, setOpenRemoveSavedRecipe] = useState(false);
+  const [commentedOnRecipe, setCommentedOnRecipe] = useState({})
 
   useEffect(() => {
     const userJSON = JSON.parse(window.localStorage.getItem("LoggedInUser"));
@@ -80,6 +83,7 @@ const UserHomePage = () => {
         recipeService={recipeService}
         setRemovedRecipe={setRemovedRecipe}
       />
+      <AddComment open={openAddComment} setOpen={setOpenAddComment} commentedRecipe={commentedOnRecipe} />
 
       <RemoveComment open={openRemoveComment} setOpen={setOpenRemoveComment} />
       <SignOut open={openSignOut} setOpen={setOpenSignOut} />
@@ -95,6 +99,9 @@ const UserHomePage = () => {
         dialogRecipe={dialogRecipe}
         showRecipes={showRecipes}
         setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
+        setOpenAddComment={setOpenAddComment}
+        openAddComment={openAddComment}
+        setCommentedOnRecipe={setCommentedOnRecipe}
       />
     </div>
   );
