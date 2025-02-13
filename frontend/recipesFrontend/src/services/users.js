@@ -68,11 +68,23 @@ const editUser = async (id, newUser) => {
   };
   const url = `http://localhost:3000/api/users/${id}`;
   try {
-    const response = await axios.put(url, newUser,config);
+    const response = await axios.put(url, newUser, config);
     return response.data;
   } catch (error) {
     console.log(error);
     throw error;
+  }
+};
+
+const editUserSavedRecipes = async (id, recipeId) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const url = `http://localhost:3000/api/users/${id}`;
+  try {
+    await axios.patch(url, { recipeId }, config);
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -83,4 +95,5 @@ export default {
   getAllUsers,
   getUser,
   setToken,
+  editUserSavedRecipes,
 };

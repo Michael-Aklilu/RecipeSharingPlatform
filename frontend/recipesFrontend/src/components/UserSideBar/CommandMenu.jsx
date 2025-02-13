@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import { FiLogOut } from "react-icons/fi";
-import { FaUserMinus, FaUserPlus, FaPizzaSlice, FaBan } from "react-icons/fa";
+import { FaUserMinus, FaPlus, FaPizzaSlice, FaBan } from "react-icons/fa";
 
 export default function CommandMenu({
   open,
@@ -12,6 +12,7 @@ export default function CommandMenu({
   setOpenRemoveRecipe,
   setOpenSignOut,
   setOpenAddAdmin,
+  setCurrentView,
 }) {
   const [value, setValue] = useState("");
 
@@ -51,20 +52,6 @@ export default function CommandMenu({
             <span className="text-stone-950">"{value}"</span>
           </Command.Empty>
 
-         
-          <Command.Group
-            heading="Users"
-            className="text-lg mb-3 text-stone-700 "
-          >
-            <Command.Item className="flex cursor-pointer transition-colors p-2 text-lg text-stone-950 hover:bg-white rounded items-centergap-2">
-              <FaUserPlus size={21} />
-              <span className="ml-1">Add to saved recipes</span>
-            </Command.Item>
-            <Command.Item className="flex cursor-pointer transition-colors p-2 text-lg text-stone-950 hover:bg-white rounded items-centergap-2">
-              <FaUserMinus size={21} />
-              <span className="ml-1">Remove from saved recipes</span>
-            </Command.Item>
-          </Command.Group>
           <Command.Group
             heading="Content"
             className="text-lg mb-3 text-stone-700 "
@@ -79,18 +66,6 @@ export default function CommandMenu({
                 }}
               >
                 Add recipe
-              </span>
-            </Command.Item>
-            <Command.Item className="flex cursor-pointer transition-colors p-2 text-lg text-stone-950 hover:bg-white rounded items-centergap-2">
-              <FaBan size={21} />
-              <span
-                className="ml-1"
-                onClick={() => {
-                  setOpenRemoveRecipe(true);
-                  setOpen(false);
-                }}
-              >
-                Remove Recipe
               </span>
             </Command.Item>
           </Command.Group>

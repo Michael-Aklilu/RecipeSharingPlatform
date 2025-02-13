@@ -15,7 +15,10 @@ export default function DashboardGrid({
   setOpenAddToSavedRecipes,
   setOpenAddComment,
   setCommentedOnRecipe,
-  openAddComment
+  openAddComment,
+  setShowAllRecipes,
+  showAllRecipes,
+  currentView,
 }) {
   const [myRecipes, setMyRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -25,45 +28,67 @@ export default function DashboardGrid({
   commentService.setToken(user.token);
 
   useEffect(() => {
-    fetchRecipes();
-  }, []);
-
-  useEffect(() => {
-    fetchRecipes();
-  },[openAddComment])
-
- 
+    if (currentView === "all") {
+      fetchRecipes();
+    } else if (currentView === "added") {
+      fetchAddedRecipes();
+    } else if (currentView === "saved") {
+      fetchSavedRecipes();
+    }
+  }, [currentView, openAddComment]);
 
   const fetchRecipes = async () => {
     try {
       const dbRecipes = await recipeService.showAllRecipes();
-
-      //const users = await userService.getAllUsers();
-     // const myUser = users.find((u) => u.name === user.name);
-
-     // const myDbRecipes = dbRecipes.filter((recipe) => {
-       // return recipe.RegisteredUser.id === myUser.id;
-    //  });
-
       setMyRecipes(dbRecipes);
     } catch (error) {
       console.log("Error fetching recipes");
     }
   };
 
-  /*
-  const addToSavedRecipes = async (event) => {
-    event.preventDefault();
-    const users = await userService.getAllUsers();
-    const myUser = users.find((u) => u.username === user.username);
-    const recipes = await recipeService.showAllRecipes()
-    const recipeToAdd = recipes.find((r) => r.title === event.target.name)
-    const newUser = {...myUser, savedRecipes: myUser.savedRecipes.concat(recipeToAdd)}
-    await userService.editUser(myUser.id,newUser)   
-    console.log(user);
-    setShowRecipes(false)
+  const fetchAddedRecipes = async () => {
+    try {
+      const dbRecipes = await recipeService.showAllRecipes();
+      const users = await userService.getAllUsers();
+      const myUser = users.find((u) => u.name === user.name);
+      const myAddedRecipes = dbRecipes.filter((recipe) => {
+        return recipe.RegisteredUser.id === myUser.id;
+      });
+      setMyRecipes(myAddedRecipes);
+    } catch (error) {
+      console.log("Error fetching recipes");
+    }
   };
-  */
+
+  const fetchSavedRecipes = async () => {
+    try {
+      const users = await userService.getAllUsers();
+      const myUser = users.find((u) => u.name === user.name);
+      setMyRecipes(myUser.savedRecipes);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addToSavedRecipes = async (recipeToAdd) => {
+    try {
+      if (!recipeToAdd?.id) {
+        throw new Error("Invalid recipe object - missing ID");
+      }
+      
+      const users = await userService.getAllUsers();
+      const myUser = users.find((u) => u.username === user.username);
+      
+      if (!myUser?.id) {
+        throw new Error("User not found");
+      }
+  
+      await userService.editUserSavedRecipes(myUser.id, recipeToAdd.id);
+      setShowRecipes(false);
+    } catch (error) {
+      console.error("Save Error:", error);
+    }
+  };
 
   const handleRecipeClick = (recipe) => {
     setDialogRecipe([recipe]);
@@ -184,6 +209,7 @@ export default function DashboardGrid({
                     className="px-8 py-3 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-full 
                    hover:from-green-700 hover:to-green-600 transition-all transform hover:scale-105
                    shadow-lg flex items-center"
+                    onClick={() => addToSavedRecipes(dialogRecipe[0])}
                   >
                     Add to saved Recipes
                   </button>
@@ -212,15 +238,15 @@ export default function DashboardGrid({
         </div>
       )}
       <div className="max-h-[80vh] overflow-y-auto">
-        <h1 className="font-bold text-3xl text-center mb-5">My Recipes</h1>
+        <h1 className="font-bold text-3xl text-center mb-5">Recipes</h1>
         <div className="grid gap-4 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] grid-rows-[repeat(auto-fill,_minmax(300px,_1fr))] border bg-stone-200">
           {myRecipes.map((recipe) => {
             return (
               <RecipeGridItem
-                key={recipe.description}
+                key={recipe.id || recipe.title}
                 recipes={recipe}
                 setShowRecipes={setShowRecipes}
-                setDialogRecipe={(selected) => {
+                setDialogRecipe={() => {
                   handleRecipeClick(recipe);
                 }}
               />

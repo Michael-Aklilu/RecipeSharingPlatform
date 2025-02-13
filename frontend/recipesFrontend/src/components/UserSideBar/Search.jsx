@@ -9,6 +9,7 @@ export default function Search({
   setOpenRemoveRecipe,
   setOpenSignOut,
   setOpenAddAdmin,
+  setCurrentView
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -39,6 +40,7 @@ export default function Search({
         setOpenRemoveRecipe={setOpenRemoveRecipe}
         setOpenSignOut={setOpenSignOut}
         setOpenAddAdmin={setOpenAddAdmin}
+        setCurrentView={setCurrentView}
       />
     </>
   );

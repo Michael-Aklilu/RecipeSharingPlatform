@@ -41,14 +41,13 @@ const UsersList = ({ userService, showAddedUser, showRemovedUser }) => {
           <TableHead />
           <tbody>
             {users.map((user) => {
-             
               return (
                 <TableRow
                   key={user.id}
                   userID={user.id}
                   username={user.username}
                   name={user.name}
-                 // recipesNumber={user.addedRecipes.length}
+                  recipesNumber={user.addedRecipes?.length ?? 0}
                 />
               );
             })}

@@ -34,6 +34,9 @@ const UserHomePage = () => {
   const [openAddToSavedRecipes, setOpenAddToSavedRecipes] = useState(false);
   const [openRemoveSavedRecipe, setOpenRemoveSavedRecipe] = useState(false);
   const [commentedOnRecipe, setCommentedOnRecipe] = useState({})
+  const [showAllRecipes, setShowAllRecipes] = useState(true)
+  const [showAddedRecipes, setShowAddedRecipes] = useState(false)
+  const [currentView, setCurrentView] = useState("all");
 
   useEffect(() => {
     const userJSON = JSON.parse(window.localStorage.getItem("LoggedInUser"));
@@ -55,6 +58,8 @@ const UserHomePage = () => {
         setOpenAddAdmin={setOpenAddAdmin}
         setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
         setOpenRemoveSavedRecipe={setOpenRemoveSavedRecipe}
+        setShowAddedRecipes={setShowAddedRecipes}
+        setCurrentView={setCurrentView}
       />
 
       <AddToSavedRecipes
@@ -102,6 +107,9 @@ const UserHomePage = () => {
         setOpenAddComment={setOpenAddComment}
         openAddComment={openAddComment}
         setCommentedOnRecipe={setCommentedOnRecipe}
+        showAllRecipes={showAllRecipes}
+        setShowAllRecipes={setShowAllRecipes}
+        currentView={currentView}
       />
     </div>
   );

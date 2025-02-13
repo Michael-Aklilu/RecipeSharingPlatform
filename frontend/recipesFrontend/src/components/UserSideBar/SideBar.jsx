@@ -15,7 +15,9 @@ export default function SideBar({
   user,
   setOpenAddAdmin,
   setOpenAddToSavedRecipes,
-  setOpenRemoveSavedRecipe
+  setOpenRemoveSavedRecipe,
+  setShowAddedRecipes,
+  setCurrentView
 }) {
   return (
     <div className="bg-gray-700 rounded-lg ">
@@ -28,6 +30,7 @@ export default function SideBar({
           setOpenRemoveRecipe={setOpenRemoveRecipe}
           setOpenSignOut={setOpenSignOut}
           setOpenAddAdmin={setOpenAddAdmin}
+          setCurrentView={setCurrentView}
         />
         <RouteSelect
           isOpen={isOpen}
@@ -40,6 +43,9 @@ export default function SideBar({
           setOpenSignOut={setOpenSignOut}
           setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
           setOpenRemoveSavedRecipe={setOpenRemoveSavedRecipe}
+          setShowAddedRecipes={setShowAddedRecipes}
+          setCurrentView={setCurrentView}
+          
         />
       </div>
       <SideBarFooter />

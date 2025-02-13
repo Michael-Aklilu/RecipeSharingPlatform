@@ -5,6 +5,7 @@ import {
   FaPizzaSlice,
   FaBan,
   FaPlus,
+  FaBookmark,
 } from "react-icons/fa";
 
 export default function RouteSelect({
@@ -15,21 +16,32 @@ export default function RouteSelect({
   setOpenAddRecipe,
   setOpenRemoveRecipe,
   setOpenSignOut,
-
+  setShowAddedRecipes,
+  setCurrentView,
 }) {
   return (
     <div className="space-y-8 text-white">
-      <Route icon={FiHome} title="Dashboard" />
-     
+      <Route
+        icon={FiHome}
+        title="Dashboard"
+        onClick={() => setCurrentView("all")}
+      />
+
       <Route
         icon={FaPizzaSlice}
         title="Add Recipe"
         onClick={() => setOpenAddRecipe(true)}
       />
+      
       <Route
-        icon={FaBan}
-        title="Remove Recipe"
-        onClick={() => setOpenRemoveRecipe(true)}
+        icon={FaPlus}
+        title="Added recipes"
+        onClick={() => setCurrentView("added")}
+      />
+      <Route
+        icon={FaBookmark}
+        title="Saved recipes"
+        onClick={() => setCurrentView("saved")}
       />
       <Route
         icon={FiLogOut}
