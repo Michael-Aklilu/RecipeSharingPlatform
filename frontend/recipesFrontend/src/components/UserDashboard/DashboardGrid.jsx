@@ -15,6 +15,7 @@ export default function DashboardGrid({
   setOpenAddToSavedRecipes,
   setOpenAddComment,
   setCommentedOnRecipe,
+  openAddComment
 }) {
   const [myRecipes, setMyRecipes] = useState([]);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -27,18 +28,24 @@ export default function DashboardGrid({
     fetchRecipes();
   }, []);
 
+  useEffect(() => {
+    fetchRecipes();
+  },[openAddComment])
+
+ 
+
   const fetchRecipes = async () => {
     try {
       const dbRecipes = await recipeService.showAllRecipes();
 
-      const users = await userService.getAllUsers();
-      const myUser = users.find((u) => u.name === user.name);
+      //const users = await userService.getAllUsers();
+     // const myUser = users.find((u) => u.name === user.name);
 
-      const myDbRecipes = dbRecipes.filter((recipe) => {
-        return recipe.RegisteredUser.id === myUser.id;
-      });
+     // const myDbRecipes = dbRecipes.filter((recipe) => {
+       // return recipe.RegisteredUser.id === myUser.id;
+    //  });
 
-      setMyRecipes(myDbRecipes);
+      setMyRecipes(dbRecipes);
     } catch (error) {
       console.log("Error fetching recipes");
     }
@@ -69,7 +76,6 @@ export default function DashboardGrid({
     setShowRecipes(false);
     setCommentedOnRecipe(selectedRecipe);
     setOpenAddComment(true);
-    fetchRecipes();
   };
 
   return (

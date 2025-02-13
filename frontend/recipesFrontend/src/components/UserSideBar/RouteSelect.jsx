@@ -31,7 +31,6 @@ export default function RouteSelect({
         title="Remove Recipe"
         onClick={() => setOpenRemoveRecipe(true)}
       />
-      <Route icon={FaPlus} title="Add Comment" />
       <Route
         icon={FiLogOut}
         title="Sign out"
