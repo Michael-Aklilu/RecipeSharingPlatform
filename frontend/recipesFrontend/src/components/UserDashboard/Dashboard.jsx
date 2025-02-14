@@ -18,7 +18,8 @@ export default function Dashboard({
     setCommentedOnRecipe,
     setShowAllRecipes,
     showAllRecipes,
-    currentView
+    currentView,
+    commentService
 }) {
   return (
     <div className="bg-white rounded-lg pb-4 shadow h-full">

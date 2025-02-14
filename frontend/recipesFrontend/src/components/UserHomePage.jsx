@@ -13,6 +13,7 @@ import userService from "../services/users";
 import recipeService from "../services/recipes";
 import adminService from "../services/admin";
 import Dashboard from "./UserDashboard/Dashboard";
+import commentService from "../services/comments"
 
 const UserHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -97,6 +98,7 @@ const UserHomePage = () => {
         user={user}
         recipeService={recipeService}
         adminService={adminService}
+        commentService={commentService}
         addedRecipe={addedRecipe}
         removedRecipe={removedRecipe}
         setShowRecipes={setShowRecipes}

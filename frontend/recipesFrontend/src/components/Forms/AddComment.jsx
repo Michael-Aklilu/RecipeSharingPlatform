@@ -1,16 +1,23 @@
 import { FaPlus } from "react-icons/fa";
 import commentService from "../../services/comments";
+import userService from "../../services/users";
 
 export default function AddComment({ open, setOpen, commentedRecipe }) {
+  const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
+  commentService.setToken(user.token);
+  userService.setToken(user.token);
+
   if (!open) return null;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const users = await userService.getAllUsers();
+    const myUser = users.find((u) => u.username === user.username);
+
     const commentText = event.target.comment.value;
-    console.log(commentedRecipe);
     const commentDetails = {
       comment: commentText,
-      RegisteredUser: commentedRecipe.RegisteredUser.id,
+      RegisteredUser: myUser.id,
       Recipe: commentedRecipe.id,
       date: new Date(),
     };

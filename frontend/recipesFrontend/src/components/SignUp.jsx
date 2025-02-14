@@ -28,20 +28,15 @@ const SignUp = ({ setLoggedInUser }) => {
       setTimeout(() => setError("Password is too short"), 0);
       return;
     }
-    try {
-      const users = await userService.getAllUsers();
-      const duplicateUser = users.find((u) => u.username === username);
-      if (duplicateUser) {
-        setError("");
-        setTimeout(() => setError("Username is taken"), 0);
-        return;
-      }
+    try {  
       const user = await signUpService.signUp({ username, name, password });
+      window.localStorage.setItem("LoggedInUser", JSON.stringify(user.user))
       setLoggedInUser(user);
       setUsername("");
       setPassword("");
-      if (user) navigate("/UserProfile");
-    } catch {
+      if (user) navigate("/Login");
+    } catch(error) {
+      console.log(error);
       setError("");
       setTimeout(() => setError("Account not created"), 0);
       console.log("Account not created");
