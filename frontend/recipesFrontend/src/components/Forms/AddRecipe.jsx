@@ -117,6 +117,7 @@ export default function AddRecipe({
       event.target.cookTime.value = "";
       event.target.imageUrl.value = "";
     }
+    window.location.reload()
   };
 
   const adminAddRecipe = async (recipe) => {

@@ -4,17 +4,43 @@ import Notification from "../Notifications/Notification";
 
 export default function RemoveSavedRecipe({ open, setOpen, userService }) {
   const [error, setError] = useState("");
-  const [myUser, setMyUser] = useState(null);
+  const [title, setTitle] = useState("");
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   if (!open) return null;
 
-  const handleInput = (event) => {
-    event.preventDefault()
-    console.log(event.target);
-  }
+  const handleInput = async (event) => {
+    event.preventDefault();
+
+    try {
+      const users = await userService.getAllUsers();
+      const myUser = users.find((u) => u.username === user.username);
+
+      const recipeToRemove = myUser.savedRecipes.find(
+        (recipe) =>{
+          return recipe.title === title
+        } 
+      );
+
+      if (!recipeToRemove) {
+        setError("Recipe not found in saved recipes");
+        return;
+      }
+  
+      await userService.removeUserSavedRecipe(myUser.id, recipeToRemove.id);
+
+      setTitle("");
+      setOpen(false);
+      window.location.reload();
+    } catch (error) {
+      setError(error.message || "Failed to remove recipe");
+    }
+  };
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 p-4">
-      <form className="w-full max-w-3xl bg-gray-700 rounded-xl shadow-lg overflow-hidden" onSubmit={handleInput}>
+      <form
+        className="w-full max-w-3xl bg-gray-700 rounded-xl shadow-lg overflow-hidden"
+        onSubmit={handleInput}
+      >
         <div className="text-white p-6 md:p-8 flex flex-col space-y-4 border border-white bg-gray-700 rounded-xl max-h-[80vh] overflow-y-auto">
           <h1 className="text-2xl md:text-3xl flex justify-center font-semibold text-white gap-2">
             <FaBan />
@@ -26,6 +52,8 @@ export default function RemoveSavedRecipe({ open, setOpen, userService }) {
             <input
               type="text"
               name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               className="block w-full mt-2 p-2 rounded text-black text-lg"
               placeholder="Enter title ..."
             />
