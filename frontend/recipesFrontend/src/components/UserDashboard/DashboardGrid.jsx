@@ -64,9 +64,15 @@ export default function DashboardGrid({
     try {
       const users = await userService.getAllUsers();
       const myUser = users.find((u) => u.name === user.name);
-      setMyRecipes(myUser.savedRecipes);
+      const savedRecipeIds = myUser?.savedRecipes.map(recipe => recipe.id) || [];
+
+      const fullRecipes = await Promise.all(
+        savedRecipeIds.map((id) => recipeService.showRecipe(id))
+      );
+      setMyRecipes(fullRecipes);
     } catch (error) {
       console.log(error);
+      setMyRecipes([]);
     }
   };
 
@@ -75,14 +81,14 @@ export default function DashboardGrid({
       if (!recipeToAdd?.id) {
         throw new Error("Invalid recipe object - missing ID");
       }
-      
+
       const users = await userService.getAllUsers();
       const myUser = users.find((u) => u.username === user.username);
-      
+
       if (!myUser?.id) {
         throw new Error("User not found");
       }
-  
+
       await userService.editUserSavedRecipes(myUser.id, recipeToAdd.id);
       setShowRecipes(false);
     } catch (error) {

@@ -2,7 +2,12 @@ import { FaBan } from "react-icons/fa";
 import { useState } from "react";
 import Notification from "../Notifications/Notification";
 
-export default function RemoveRecipe({ open, setOpen, recipeService, setRemovedRecipe }) {
+export default function RemoveRecipe({
+  open,
+  setOpen,
+  recipeService,
+  setRemovedRecipe,
+}) {
   const [error, setError] = useState("");
   const admin = JSON.parse(window.localStorage.getItem("LoggedInAdmin"));
   if (!open) return null;
@@ -20,6 +25,7 @@ export default function RemoveRecipe({ open, setOpen, recipeService, setRemovedR
       return;
     }
     if (admin) {
+      console.log(event.target.id.value);
       adminRemoveRecipe(event.target.id.value);
       event.target.id.value = "";
       event.target.title.value = "";
@@ -30,13 +36,12 @@ export default function RemoveRecipe({ open, setOpen, recipeService, setRemovedR
 
   const adminRemoveRecipe = async (id) => {
     recipeService.setToken(admin.token);
-    
+
     try {
       const recipes = await recipeService.showAllRecipes();
       const recipeToRemove = recipes.find((r) => r.id === id);
-      await recipeService.deleteRecipe(recipeToRemove.id)
-      setRemovedRecipe(recipeToRemove)
-      
+      await recipeService.deleteRecipe(recipeToRemove.id);
+      setRemovedRecipe(recipeToRemove);
     } catch (error) {
       console.log("Error removing recipe");
       console.log(error);

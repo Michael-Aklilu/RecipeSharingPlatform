@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiOutlineBookOpen } from "react-icons/hi";
+import { FaBan } from "react-icons/fa";
 import Notification from "../Notifications/Notification";
 
 export default function RemoveSavedRecipe({ open, setOpen, userService }) {
@@ -7,12 +7,17 @@ export default function RemoveSavedRecipe({ open, setOpen, userService }) {
   const [myUser, setMyUser] = useState(null);
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
   if (!open) return null;
+
+  const handleInput = (event) => {
+    event.preventDefault()
+    console.log(event.target);
+  }
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 p-4">
-      <form className="w-full max-w-3xl bg-gray-700 rounded-xl shadow-lg overflow-hidden">
+      <form className="w-full max-w-3xl bg-gray-700 rounded-xl shadow-lg overflow-hidden" onSubmit={handleInput}>
         <div className="text-white p-6 md:p-8 flex flex-col space-y-4 border border-white bg-gray-700 rounded-xl max-h-[80vh] overflow-y-auto">
           <h1 className="text-2xl md:text-3xl flex justify-center font-semibold text-white gap-2">
-            <HiOutlineBookOpen />
+            <FaBan />
             Remove saved recipe
           </h1>
           <hr className="border border-white" />

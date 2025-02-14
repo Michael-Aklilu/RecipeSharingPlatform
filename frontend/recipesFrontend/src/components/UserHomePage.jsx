@@ -94,6 +94,8 @@ const UserHomePage = () => {
       <RemoveComment open={openRemoveComment} setOpen={setOpenRemoveComment} />
       <SignOut open={openSignOut} setOpen={setOpenSignOut} />
 
+      <RemoveSavedRecipe open={openRemoveSavedRecipe} setOpen={setOpenRemoveSavedRecipe} userService={userService}/>
+
       <Dashboard
         user={user}
         recipeService={recipeService}

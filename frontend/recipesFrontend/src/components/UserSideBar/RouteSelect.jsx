@@ -18,6 +18,7 @@ export default function RouteSelect({
   setOpenSignOut,
   setShowAddedRecipes,
   setCurrentView,
+  setOpenRemoveSavedRecipe
 }) {
   return (
     <div className="space-y-8 text-white">
@@ -42,6 +43,11 @@ export default function RouteSelect({
         icon={FaBookmark}
         title="Saved recipes"
         onClick={() => setCurrentView("saved")}
+      />
+      <Route
+        icon={FaBan}
+        title="Remove saved recipe"
+        onClick={() => setOpenRemoveSavedRecipe(true)}
       />
       <Route
         icon={FiLogOut}
