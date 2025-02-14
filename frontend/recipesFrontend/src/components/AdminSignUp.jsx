@@ -41,7 +41,7 @@ const AdminSignUp = ({ setLoggedInAdmin }) => {
       window.localStorage.setItem("LoggedInAdmin", JSON.stringify(admin));
       setUsername("");
       setPassword("");
-      if (admin) navigate("/AdminHome");
+      if (admin) navigate("/AdminLogin");
     } catch {
       setError("");
       setTimeout(() => setError("Account not created"), 0);
