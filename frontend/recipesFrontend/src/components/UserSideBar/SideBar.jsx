@@ -17,7 +17,8 @@ export default function SideBar({
   setOpenAddToSavedRecipes,
   setOpenRemoveSavedRecipe,
   setShowAddedRecipes,
-  setCurrentView
+  setCurrentView,
+  setOpenRemoveAddedRecipe
 }) {
   return (
     <div className="bg-gray-700 rounded-lg ">
@@ -43,6 +44,7 @@ export default function SideBar({
           setOpenSignOut={setOpenSignOut}
           setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
           setOpenRemoveSavedRecipe={setOpenRemoveSavedRecipe}
+          setOpenRemoveAddedRecipe={setOpenRemoveAddedRecipe}
           setShowAddedRecipes={setShowAddedRecipes}
           setCurrentView={setCurrentView}
           

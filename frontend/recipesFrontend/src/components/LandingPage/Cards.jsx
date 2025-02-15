@@ -20,7 +20,7 @@ export default function Cards() {
             className="bg-gray-700 w-[150px] rounded-md font-medium text-lg my-6 mx-auto px-5 text-white p-2"
             onClick={() => navigate("/Home")}
           >
-            Try recipe
+            Try recipes
           </button>
         </div>
         <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ">
@@ -36,7 +36,7 @@ export default function Cards() {
             className="bg-gray-700 w-[150px] rounded-md font-medium text-lg my-6 mx-auto px-5 text-white p-2"
             onClick={() => navigate("/Home")}
           >
-            Try recipe
+            Try recipes
           </button>
         </div>
         <div className="w-full shadow-xl flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ">
@@ -50,7 +50,7 @@ export default function Cards() {
             className="bg-gray-700 w-[150px] rounded-md font-medium text-lg my-6 mx-auto px-5 text-white p-2"
             onClick={() => navigate("/Home")}
           >
-            Try recipe
+            Try recipes
           </button>
         </div>
       </div>

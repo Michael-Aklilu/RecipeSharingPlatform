@@ -48,15 +48,13 @@ export default function DashboardGrid({
 
   const fetchAddedRecipes = async () => {
     try {
-      const dbRecipes = await recipeService.showAllRecipes();
       const users = await userService.getAllUsers();
-      const myUser = users.find((u) => u.name === user.name);
-      const myAddedRecipes = dbRecipes.filter((recipe) => {
-        return recipe.RegisteredUser.id === myUser.id;
-      });
-      setMyRecipes(myAddedRecipes);
+      const myUser = users.find((u) => u.username === user.username);
+
+      setMyRecipes(myUser.addedRecipes || []);
     } catch (error) {
       console.log("Error fetching recipes");
+      setMyRecipes([]);
     }
   };
 
@@ -64,7 +62,8 @@ export default function DashboardGrid({
     try {
       const users = await userService.getAllUsers();
       const myUser = users.find((u) => u.name === user.name);
-      const savedRecipeIds = myUser?.savedRecipes.map(recipe => recipe.id) || [];
+      const savedRecipeIds =
+        myUser?.savedRecipes.map((recipe) => recipe.id) || [];
 
       const fullRecipes = await Promise.all(
         savedRecipeIds.map((id) => recipeService.showRecipe(id))

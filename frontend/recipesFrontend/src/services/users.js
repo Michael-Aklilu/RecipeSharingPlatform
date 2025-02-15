@@ -101,6 +101,20 @@ const removeUserSavedRecipe = async (id, recipeId) => {
   }
 };
 
+const removeUserAddedRecipe = async (id, recipeId) => {
+  const config = {
+    headers: { Authorization: token },
+  };
+  const url = `http://localhost:3000/api/users/${id}/remove-added`;
+  try {
+    await axios.patch(url, { recipeId }, config);
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
 export default {
   addUser,
   editUser,
@@ -109,5 +123,6 @@ export default {
   getUser,
   setToken,
   editUserSavedRecipes,
-  removeUserSavedRecipe
+  removeUserSavedRecipe,
+  removeUserAddedRecipe
 };

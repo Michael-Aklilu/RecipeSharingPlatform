@@ -5,15 +5,16 @@ import AddRecipe from "./Forms/AddRecipe";
 import RemoveRecipe from "./Forms/RemoveRecipe";
 import AddToSavedRecipes from "./Forms/AddToSavedRecipes";
 import RemoveSavedRecipe from "./Forms/RemoveSavedRecipe";
-import AddComment from "./Forms/AddComment"
+import AddComment from "./Forms/AddComment";
 import RemoveComment from "./Forms/RemoveComment";
+import RemoveAddedRecipe from "./Forms/RemoveAddedRecipe";
 import SignOut from "./Forms/SignOut";
 
 import userService from "../services/users";
 import recipeService from "../services/recipes";
 import adminService from "../services/admin";
 import Dashboard from "./UserDashboard/Dashboard";
-import commentService from "../services/comments"
+import commentService from "../services/comments";
 
 const UserHomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ const UserHomePage = () => {
   const [openRemoveUser, setOpenRemoveUser] = useState(false);
   const [openAddRecipe, setOpenAddRecipe] = useState(false);
   const [openRemoveRecipe, setOpenRemoveRecipe] = useState(false);
-  const [openAddComment, setOpenAddComment] = useState(false)
+  const [openAddComment, setOpenAddComment] = useState(false);
   const [openRemoveComment, setOpenRemoveComment] = useState(false);
   const [openSignOut, setOpenSignOut] = useState(false);
   const [showAddedUser, setShowAddedUser] = useState("");
@@ -34,9 +35,10 @@ const UserHomePage = () => {
   const [dialogRecipe, setDialogRecipe] = useState(null);
   const [openAddToSavedRecipes, setOpenAddToSavedRecipes] = useState(false);
   const [openRemoveSavedRecipe, setOpenRemoveSavedRecipe] = useState(false);
-  const [commentedOnRecipe, setCommentedOnRecipe] = useState({})
-  const [showAllRecipes, setShowAllRecipes] = useState(true)
-  const [showAddedRecipes, setShowAddedRecipes] = useState(false)
+  const [commentedOnRecipe, setCommentedOnRecipe] = useState({});
+  const [showAllRecipes, setShowAllRecipes] = useState(true);
+  const [showAddedRecipes, setShowAddedRecipes] = useState(false);
+  const [openRemoveAddedRecipe, setOpenRemoveAddedRecipe] = useState(false);
   const [currentView, setCurrentView] = useState("all");
 
   useEffect(() => {
@@ -59,6 +61,7 @@ const UserHomePage = () => {
         setOpenAddAdmin={setOpenAddAdmin}
         setOpenAddToSavedRecipes={setOpenAddToSavedRecipes}
         setOpenRemoveSavedRecipe={setOpenRemoveSavedRecipe}
+        setOpenRemoveAddedRecipe={setOpenRemoveAddedRecipe}
         setShowAddedRecipes={setShowAddedRecipes}
         setCurrentView={setCurrentView}
       />
@@ -72,6 +75,11 @@ const UserHomePage = () => {
       <RemoveSavedRecipe
         open={openRemoveSavedRecipe}
         setOpen={setOpenRemoveSavedRecipe}
+        userService={userService}
+      />
+      <RemoveAddedRecipe
+        open={openRemoveAddedRecipe}
+        setOpen={setOpenRemoveAddedRecipe}
         userService={userService}
       />
 
@@ -89,12 +97,20 @@ const UserHomePage = () => {
         recipeService={recipeService}
         setRemovedRecipe={setRemovedRecipe}
       />
-      <AddComment open={openAddComment} setOpen={setOpenAddComment} commentedRecipe={commentedOnRecipe} />
+      <AddComment
+        open={openAddComment}
+        setOpen={setOpenAddComment}
+        commentedRecipe={commentedOnRecipe}
+      />
 
       <RemoveComment open={openRemoveComment} setOpen={setOpenRemoveComment} />
       <SignOut open={openSignOut} setOpen={setOpenSignOut} />
 
-      <RemoveSavedRecipe open={openRemoveSavedRecipe} setOpen={setOpenRemoveSavedRecipe} userService={userService}/>
+      <RemoveSavedRecipe
+        open={openRemoveSavedRecipe}
+        setOpen={setOpenRemoveSavedRecipe}
+        userService={userService}
+      />
 
       <Dashboard
         user={user}

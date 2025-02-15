@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { FaBan } from "react-icons/fa";
 import Notification from "../Notifications/Notification";
+import recipeService from "../../services/recipes";
 
-export default function RemoveSavedRecipe({ open, setOpen, userService }) {
+export default function RemoveAddedRecipe({ open, setOpen, userService }) {
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const user = JSON.parse(window.localStorage.getItem("LoggedInUser"));
@@ -15,18 +16,16 @@ export default function RemoveSavedRecipe({ open, setOpen, userService }) {
       const users = await userService.getAllUsers();
       const myUser = users.find((u) => u.username === user.username);
 
-      const recipeToRemove = myUser.savedRecipes.find(
-        (recipe) =>{
-          return recipe.title === title
-        } 
+      const recipeToRemove = myUser.addedRecipes.find(
+        (recipe) => recipe.title === title
       );
 
       if (!recipeToRemove) {
-        setError("Recipe not found in saved recipes");
+        setError("Recipe not found in added recipes");
         return;
       }
-  
-      await userService.removeUserSavedRecipe(myUser.id, recipeToRemove.id);
+
+      await recipeService.deleteRecipe(recipeToRemove.id);
 
       setTitle("");
       setOpen(false);
@@ -35,6 +34,7 @@ export default function RemoveSavedRecipe({ open, setOpen, userService }) {
       setError(error.message || "Failed to remove recipe");
     }
   };
+
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 p-4">
       <form
@@ -44,7 +44,7 @@ export default function RemoveSavedRecipe({ open, setOpen, userService }) {
         <div className="text-white p-6 md:p-8 flex flex-col space-y-4 border border-white bg-gray-700 rounded-xl max-h-[80vh] overflow-y-auto">
           <h1 className="text-2xl md:text-3xl flex justify-center font-semibold text-white gap-2">
             <FaBan />
-            Unsave recipe
+            Remove added recipe
           </h1>
           <hr className="border border-white" />
           <label htmlFor="title" className="text-lg md:text-xl">
@@ -70,7 +70,7 @@ export default function RemoveSavedRecipe({ open, setOpen, userService }) {
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              Unsave
+              Remove
             </button>
           </div>
         </div>
