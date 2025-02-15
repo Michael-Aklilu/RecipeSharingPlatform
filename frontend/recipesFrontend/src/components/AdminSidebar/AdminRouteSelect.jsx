@@ -43,12 +43,14 @@ const AdminRouteSelect = ({
         setOpenRemoveRecipe={setOpenRemoveRecipe}
         onClick={() => setOpenRemoveRecipe(true)}
       />
+      {/*
       <Route
         icon={FaTrash}
         title="Remove Comment"
         setOpenRemoveComment={setOpenRemoveComment}
         onClick={() => setOpenRemoveComment(true)}
       />
+      */}
       <Route
         icon={FiLogOut}
         title="Sign out"
